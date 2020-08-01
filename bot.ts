@@ -1,17 +1,25 @@
 require("dotenv").config();
-if(!process.env.d_TOKEN) {
+if (!process.env.d_TOKEN) {
     throw new Error("no discord token set");
 }
 
 // import { Client } from "eris";
 import { Client, Message } from 'eris'
 import fs from 'fs';
+import { BayesClassifier } from 'natural';
+import { phrase } from 'types/nlp';
 let cmds = require("./cmds.json");
 
-const bot: Client = new Client(process.env.d_TOKEN, {
-    "allowedMentions": { "everyone": true },
+const bot = new Client(process.env.d_TOKEN, {
+    // "allowedMentions": { "everyone": true },
     "autoreconnect": true
 });
+
+const classifier = new BayesClassifier();
+require("./training.json").phrases.forEach((element: phrase) => {
+    classifier.addDocument(element.phrase, element.key)
+});
+classifier.train();
 
 bot.on("ready", () => {
     console.log(new Date() + " - bot ready");
@@ -39,7 +47,7 @@ bot.on("messageCreate", (msg: Message) => { // When a message is created
 
                 case "addcmd":
                     if (channelID === "735315394151055491" && args[0] && args[1]) { //only allow adding commands from #test
-                        let newCmd = args.shift();
+                        const newCmd = args.shift();
                         if (newCmd && cmds[newCmd] === undefined) { //dont add command if it exists already
                             cmds[newCmd] = args.join(" ");
                             bot.createMessage(channelID, "Added command: " + newCmd)
@@ -50,7 +58,7 @@ bot.on("messageCreate", (msg: Message) => { // When a message is created
 
                 case "editcmd":
                     if (channelID === "735315394151055491" && args[0] && args[1]) { //only allow editing commands from #test
-                        let newCmd = args.shift();
+                        const newCmd = args.shift();
                         if (newCmd && cmds[newCmd] !== undefined) { //make sure command exists
                             cmds[newCmd] = args.join(" ");
                             bot.createMessage(channelID, "Edited command: " + newCmd)
@@ -61,7 +69,7 @@ bot.on("messageCreate", (msg: Message) => { // When a message is created
 
                 case "deletecmd":
                     if (channelID === "735315394151055491" && args[0]) { //only allow editing commands from #test
-                        let newCmd = args.shift();
+                        const newCmd = args.shift();
                         if (newCmd && cmds[newCmd] !== undefined) { //make sure command exists
                             delete cmds[newCmd]; //delete command
                             bot.createMessage(channelID, "Deleted command: " + newCmd)
@@ -76,6 +84,8 @@ bot.on("messageCreate", (msg: Message) => { // When a message is created
                     }
                     break;
             }
+        } else {
+            console.log(classifier.classify(message));
         }
     }
 });
