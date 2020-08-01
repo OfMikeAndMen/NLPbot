@@ -1,0 +1,23 @@
+{
+  "name": "nlpbot",
+  "version": "1.0.0",
+  "description": "NLP Discord Bot",
+  "main": "bot.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OfMikeAndMen/NLPbot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OfMikeAndMen/NLPbot/issues"
+  },
+  "homepage": "https://github.com/OfMikeAndMen/NLPbot#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "eris": "^0.13.3"
+  }
+}
