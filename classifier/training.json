@@ -1,8 +1,15 @@
 {
-    "phrases": [
-        {
-            "key": "test",
-            "phrase": "this is a test"
-        }
+    "fps": [
+        "hey, what is the best way to cap my fps at 60?",
+        "Can someone help me, FiveM is not reacting to any external programs used for limiting and showing FPS",
+        "Alright. Should I do this capping before I try join my first race?",
+        "whats the asterisk for next to ppls names on the race leaderboard in server?",
+        "How do you go about beating a track lap record?",
+        "were can i find where i can lock my fps?",
+        "How do I lock my frames to 60?",
+        "i would like help getting 60 fps cap",
+        "How do you cap your fps on FiveM?",
+        "howd one FPS lock their game in FiveM?",
+        "How do I cap my graphics card to 60 fps on fiveM"
     ]
 }
