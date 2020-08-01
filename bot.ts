@@ -7,6 +7,7 @@ if (!process.env.d_TOKEN) {
 import { Client, Message } from 'eris'
 import fs from 'fs';
 import { BayesClassifier } from 'natural';
+// import { BayesClassifier, PorterStemmer } from 'natural';
 import { phrase } from 'types/nlp';
 let cmds = require("./cmds.json");
 
@@ -15,11 +16,18 @@ const bot = new Client(process.env.d_TOKEN, {
     "autoreconnect": true
 });
 
-const classifier = new BayesClassifier();
-require("./training.json").phrases.forEach((element: phrase) => {
+// let aclassifier: BayesClassifier;
+// BayesClassifier.load('classifier/classifications.json', PorterStemmer, (err, classifier) => {
+//     if (err) throw err;
+//     aclassifier = classifier
+// });
+
+let classifier = new BayesClassifier();
+require('./classifier/training.json').phrases.forEach((element: phrase) => {
     classifier.addDocument(element.phrase, element.key)
 });
 classifier.train();
+classifier.save('classifier/classifications.json', () => { })
 
 bot.on("ready", () => {
     console.log(new Date() + " - bot ready");
@@ -85,7 +93,7 @@ bot.on("messageCreate", (msg: Message) => { // When a message is created
                     break;
             }
         } else {
-            console.log(classifier.classify(message));
+            console.log(classifier.getClassifications(message));
         }
     }
 });
