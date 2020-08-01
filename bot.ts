@@ -3,11 +3,9 @@ if (!process.env.d_TOKEN) {
     throw new Error("no discord token set");
 }
 
-// import { Client } from "eris";
-import { Client, Message } from 'eris'
+import { Client } from 'eris'
 // import fs from 'fs';
 import { BayesClassifier, PorterStemmer } from 'natural';
-// import { BayesClassifier, PorterStemmer } from 'natural';
 // let cmds = require("./cmds.json");
 
 const bot = new Client(process.env.d_TOKEN, {
@@ -25,7 +23,7 @@ bot.on("ready", () => {
     console.log(new Date() + " - bot ready");
 });
 
-bot.on("messageCreate", (msg: Message) => { // When a message is created
+bot.on("messageCreate", (msg) => { // When a message is created
 
     if (msg.channel.type === 0 && msg.member) {
 
@@ -85,6 +83,7 @@ bot.on("messageCreate", (msg: Message) => { // When a message is created
                 //     break;
             }
         } else {
+            console.log(message);
             console.log(classifier.getClassifications(message));
         }
     }
