@@ -1,6 +1,6 @@
-import { BayesClassifier } from 'natural';
+import { LogisticRegressionClassifier } from 'natural';
 
-let classifier = new BayesClassifier();
+let classifier = new LogisticRegressionClassifier();
 const phrases = require('./training.json');
 
 for(const key of Object.keys(phrases)) {

@@ -5,7 +5,7 @@ if (!process.env.d_TOKEN) {
 
 import { Client } from 'eris'
 // import fs from 'fs';
-import { BayesClassifier, PorterStemmer } from 'natural';
+import { PorterStemmer, LogisticRegressionClassifier } from 'natural';
 // let cmds = require("./cmds.json");
 
 const bot = new Client(process.env.d_TOKEN, {
@@ -13,8 +13,8 @@ const bot = new Client(process.env.d_TOKEN, {
     "autoreconnect": true
 });
 
-let classifier: BayesClassifier;
-BayesClassifier.load('classifier/classifications.json', PorterStemmer, (err, _classifier) => {
+let classifier: LogisticRegressionClassifier;
+LogisticRegressionClassifier.load('classifier/classifications.json', PorterStemmer, (err, _classifier) => {
     if (err) throw err;
     classifier = _classifier;
 });
