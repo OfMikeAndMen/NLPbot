@@ -6,6 +6,7 @@ if (!process.env.d_TOKEN) {
 import { Client } from "eris";
 // import fs from 'fs';
 import { PorterStemmer, LogisticRegressionClassifier } from "natural";
+import { command } from "types/nlp";
 let cmds = require("./cmds.json");
 
 const bot = new Client(process.env.d_TOKEN, {
@@ -28,7 +29,6 @@ bot.on("ready", () => {
 });
 
 bot.on("messageCreate", (msg) => {
-  // When a message is created
 
   if (msg.channel.type === 0 && msg.member && !msg.author.bot) {
     // let serverID = msg.member.guild.id;
@@ -81,7 +81,8 @@ bot.on("messageCreate", (msg) => {
 
         default:
           if (cmd && cmds[cmd]) {
-            // bot.createMessage(channelID, cmds[cmd])
+            // const toPost: command = cmds[cmd];
+            // bot.createMessage(channelID, toPost.text, toPost.file);
             bot.createMessage("500281135226552333", `Command executed: ${cmd}`);
           }
           break;

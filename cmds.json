@@ -16,6 +16,7 @@
     "queue": "We do not have a queue system, nor are we planning to implement one. There are too many technical and logistical issues to make it a viable option. Check out #faq Q20b for information on how increase your chances of getting on.",
     "whitelist": "Special events have a whitelist applied to limit who can join and who can't.\n\nIn addition some streamers occasionally use their whitelists. To gain either the 1322 or EMDT roles for whitelisting purposes, join Broughy's Discord for 1322 and Baron's or Sarah's Discord for EMDT respectively and do ``!roles`` in #charlie to trigger a roles check.\n\nEvent roles are applied automatically when you sign up.",
     "troll": "Please read the pinned messages in #troll-cave to see why you have this role, what it means, and how to get rid of it.",
-    "stringsort": "thats how strings are sorted. Uppercase and then lowercase."
+    "stringsort": "thats how strings are sorted. Uppercase and then lowercase.",
+    "objs": "You can find templates and OBJs for most of the vehicles on Homecoming at https://p-h-c.xyz/phobjs"
 
 }
