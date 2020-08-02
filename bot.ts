@@ -6,7 +6,7 @@ if (!process.env.d_TOKEN) {
 import { Client } from "eris";
 // import fs from 'fs';
 import { PorterStemmer, LogisticRegressionClassifier } from "natural";
-import { command } from "types/nlp";
+// import { command } from "types/nlp";
 let cmds = require("./cmds.json");
 
 const bot = new Client(process.env.d_TOKEN, {
