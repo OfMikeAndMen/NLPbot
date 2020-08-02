@@ -4,7 +4,7 @@ let classifier = new LogisticRegressionClassifier();
 const phrases = require('./training.json');
 
 for(const key of Object.keys(phrases)) {
-    for (const text of phrases[key]) {
+    for (const text of phrases[key] as string[]) {
         classifier.addDocument(text, key);
     }
 };
