@@ -99,7 +99,6 @@ bot.on("messageCreate", (msg) => {
           "735315394151055491",
           `> ${msg.author.username}: ${message}\n\n${(max.value * 100).toFixed(2)}% confident\n\n${max.label}`
         );
-        console.log(classifications);
       }
     }
   }
