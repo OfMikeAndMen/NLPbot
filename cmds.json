@@ -1,22 +1,59 @@
 {
-    "fps": "In order for your lap times to save, you need to be running the game at 60FPS. This is because the GTA engine doesn't handle crazy FPS numbers very well, which can cause differences in vehicle performance.\n\nInstructions on how to limit your FPS can be found at: https://wiki.phomecoming.com/doku.php?id=faq:fpslimt",
-    "register": "For information on how to register, read the #faq.",
-    "fetching": "If you're unable to open the F7 menu and it says ``Fetching Perms`` at the bottom of the screen, reconnect to the server.",
-    "spam": "If you see the message ``Spam Timeout`` when trying to connect, it means that you have been trying to connect too many times in a short period of time and have been given a 48-hour automated ban. **This ban cannot be lifted manually.**\nFor information on how to connect in a more measured manner, check out #faq Q20b.",
-    "rookie": " In order to gain the Rookie role, all you need to do is finish races without DNFing, being binned or kicked. This role is assigned automatically when you meet the necessary requirements.\n*We won't tell you what the requirements are, so don't ask.*",
-    "regular": "In order to gain the Regular role, all you need to do is finish races without DNFing, being binned or kicked. This role is assigned automatically when you meet the necessary requirements.\n*We won't tell you what the requirements are, so don't ask.*",
-    "statsite": "Walls_6's stat site can be found at http://iron-pulse.com/phr/\n*NOTE: This is not an official Homecoming resource, and as such we assume no responsibility regarding the veracity or the accuracy of the data displayed on the site. The stats displayed on the site have no direct relation to role promotions.*",
-    "euserver": "There are no plans to set up a server in Europe. We have players from all over the world and the current server location (New York) is the best middle-ground option to enable everyone to play on the same server.",
-    "fivem": "https://discord.gg/fivem",
-    "streamer": "To gain the Streaming role, link your Twitch account to your Discord, enable Streaming Mode, and connect to one of the Homecoming servers while streaming. The role will be applied automatically.",
-    "emdt": "https://discord.gg/friendlybaron",
-    "wiki": "The Project Homecoming Wiki can be found at https://wiki.phomecoming.com/\n*NOTE: Some information might be a tad outdated. Always refer to Discord for the most up-to-date information.*",
-    "kick": "All kicks, regardless of the reason, come with a 1-hour automated timeout.\n**This timeout cannot be lifted manually.**",
-    "clip": "Good places to upload a video clip https://streamable.com/ https://youtube.com/",
-    "queue": "We do not have a queue system, nor are we planning to implement one. There are too many technical and logistical issues to make it a viable option. Check out #faq Q20b for information on how increase your chances of getting on.",
-    "whitelist": "Special events have a whitelist applied to limit who can join and who can't.\n\nIn addition some streamers occasionally use their whitelists. To gain either the 1322 or EMDT roles for whitelisting purposes, join Broughy's Discord for 1322 and Baron's or Sarah's Discord for EMDT respectively and do ``!roles`` in #charlie to trigger a roles check.\n\nEvent roles are applied automatically when you sign up.",
-    "troll": "Please read the pinned messages in #troll-cave to see why you have this role, what it means, and how to get rid of it.",
-    "stringsort": "thats how strings are sorted. Uppercase and then lowercase.",
-    "objs": "You can find templates and OBJs for most of the vehicles on Homecoming at https://p-h-c.xyz/phobjs"
-
+  "fps": {
+    "text": "In order for your lap times to save, you need to be running the game at 60FPS. This is because the GTA engine doesn't handle crazy FPS numbers very well, which can cause differences in vehicle performance.\n\nInstructions on how to limit your FPS can be found at: https://wiki.phomecoming.com/doku.php?id=faq:fpslimt"
+  },
+  "register": {
+    "text": "For information on how to register, read the #faq."
+  },
+  "fetching": {
+    "text": "If you're unable to open the F7 menu and it says ``Fetching Perms`` at the bottom of the screen, reconnect to the server."
+  },
+  "spam": {
+    "text": "If you see the message ``Spam Timeout`` when trying to connect, it means that you have been trying to connect too many times in a short period of time and have been given a 48-hour automated ban. **This ban cannot be lifted manually.**\nFor information on how to connect in a more measured manner, check out #faq Q20b."
+  },
+  "rookie": {
+    "text": " In order to gain the Rookie role, all you need to do is finish races without DNFing, being binned or kicked. This role is assigned automatically when you meet the necessary requirements.\n*We won't tell you what the requirements are, so don't ask.*"
+  },
+  "regular": {
+    "text": "In order to gain the Regular role, all you need to do is finish races without DNFing, being binned or kicked. This role is assigned automatically when you meet the necessary requirements.\n*We won't tell you what the requirements are, so don't ask.*"
+  },
+  "statsite": {
+    "text": "Walls_6's stat site can be found at http://iron-pulse.com/phr/\n*NOTE: This is not an official Homecoming resource, and as such we assume no responsibility regarding the veracity or the accuracy of the data displayed on the site. The stats displayed on the site have no direct relation to role promotions.*"
+  },
+  "euserver": {
+    "text": "There are no plans to set up a server in Europe. We have players from all over the world and the current server location (New York) is the best middle-ground option to enable everyone to play on the same server."
+  },
+  "fivem": {
+    "text": "https://discord.gg/fivem"
+  },
+  "streamer": {
+    "text": "To gain the Streaming role, link your Twitch account to your Discord, enable Streaming Mode, and connect to one of the Homecoming servers while streaming. The role will be applied automatically."
+  },
+  "emdt": {
+    "text": "https://discord.gg/friendlybaron"
+  },
+  "wiki": {
+    "text": "The Project Homecoming Wiki can be found at https://wiki.phomecoming.com/\n*NOTE: Some information might be a tad outdated. Always refer to Discord for the most up-to-date information.*"
+  },
+  "kick": {
+    "text": "All kicks, regardless of the reason, come with a 1-hour automated timeout.\n**This timeout cannot be lifted manually.**"
+  },
+  "clip": {
+    "text": "Good places to upload a video clip https://streamable.com/ https://youtube.com/"
+  },
+  "queue": {
+    "text": "We do not have a queue system, nor are we planning to implement one. There are too many technical and logistical issues to make it a viable option. Check out #faq Q20b for information on how increase your chances of getting on."
+  },
+  "whitelist": {
+    "text": "Special events have a whitelist applied to limit who can join and who can't.\n\nIn addition some streamers occasionally use their whitelists. To gain either the 1322 or EMDT roles for whitelisting purposes, join Broughy's Discord for 1322 and Baron's or Sarah's Discord for EMDT respectively and do ``!roles`` in #charlie to trigger a roles check.\n\nEvent roles are applied automatically when you sign up."
+  },
+  "troll": {
+    "text": "Please read the pinned messages in #troll-cave to see why you have this role, what it means, and how to get rid of it."
+  },
+  "stringsort": {
+    "text": "thats how strings are sorted. Uppercase and then lowercase."
+  },
+  "objs": {
+    "text": "You can find templates and OBJs for most of the vehicles on Homecoming at https://p-h-c.xyz/phobjs"
+  }
 }
