@@ -50,7 +50,7 @@ bot.on("messageCreate", (msg) => {
         //     if (channelID === "735315394151055491" && args[0] && args[1]) { //only allow adding commands from #test
         //         const newCmd = args.shift();
         //         if (newCmd && cmds[newCmd] === undefined) { //dont add command if it exists already
-        //             cmds[newCmd] = args.join(" ");
+        //             cmds[newCmd] = { text: args.join(" ") };
         //             bot.createMessage(channelID, "Added command: " + newCmd)
         //             fs.writeFile("./cmds.json", JSON.stringify(cmds, null, 2), () => { })
         //         }
@@ -61,7 +61,7 @@ bot.on("messageCreate", (msg) => {
         //     if (channelID === "735315394151055491" && args[0] && args[1]) { //only allow editing commands from #test
         //         const newCmd = args.shift();
         //         if (newCmd && cmds[newCmd] !== undefined) { //make sure command exists
-        //             cmds[newCmd] = args.join(" ");
+        //             cmds[newCmd] = { text: args.join(" ") };
         //             bot.createMessage(channelID, "Edited command: " + newCmd)
         //             fs.writeFile("./cmds.json", JSON.stringify(cmds, null, 2), () => { })
         //         }

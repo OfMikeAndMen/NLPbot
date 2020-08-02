@@ -18,4 +18,4 @@ classifier.train();
 classifier.save('./classifier/classifications.json', () => { })
 
 const fin = performance.now();
-console.log("finished training. total time: " + (fin - start) + " milliseconds")
+console.log("finished training. total time: " + (fin - start).toFixed(2) + " milliseconds")
