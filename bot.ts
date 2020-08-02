@@ -41,9 +41,7 @@ bot.on("messageCreate", (msg) => {
       let args = message.substring(1).split(" ");
       let cmd = args.shift();
 
-      switch (
-        cmd
-
+      switch (cmd) {
         // case "cmds": //lists all commands in cmds.json
         //     bot.createMessage(channelID, Object.keys(cmds).join(" "));
         //     break;
@@ -81,12 +79,12 @@ bot.on("messageCreate", (msg) => {
         //     }
         //     break;
 
-        // default:
-        //     if (cmd && cmds[cmd]) {
-        //         // bot.createMessage(channelID, cmds[cmd])
-        //     }
-        //     break;
-      ) {
+        default:
+          if (cmd && cmds[cmd]) {
+            // bot.createMessage(channelID, cmds[cmd])
+            bot.createMessage("500281135226552333", `Command executed: ${cmd}`);
+          }
+          break;
       }
     } else {
       const classifications = classifier.getClassifications(message);
@@ -97,9 +95,10 @@ bot.on("messageCreate", (msg) => {
 
       if (max.value > 0.8) {
         bot.createMessage(
-          "500281135226552333",
-          `> ${msg.author.username}: ${message}\n\n${cmds[max.label]}`
+          "735315394151055491",
+          `> ${msg.author.username}: ${message}\n\n${(max.value * 100).toFixed(2)}% confident\n\n${max.label}`
         );
+        console.log(classifications);
       }
     }
   }
