@@ -29,7 +29,7 @@ LogisticRegressionClassifier.load(
 );
 let altClass: BayesClassifier;
 BayesClassifier.load(
-  "classifier/classifications.json",
+  "classifier/alttraining.json",
   PorterStemmer,
   (err, _classifier) => {
     if (err) throw err;
