@@ -5,7 +5,11 @@ if (!process.env.d_TOKEN) {
 
 import { Client } from "eris";
 // import fs from 'fs';
-import { PorterStemmer, LogisticRegressionClassifier } from "natural";
+import {
+  PorterStemmer,
+  LogisticRegressionClassifier,
+  BayesClassifier,
+} from "natural";
 // import { command } from "types/nlp";
 let cmds = require("./cmds.json");
 
@@ -23,13 +27,21 @@ LogisticRegressionClassifier.load(
     classifier = _classifier;
   }
 );
+let altClass: BayesClassifier;
+BayesClassifier.load(
+  "classifier/classifications.json",
+  PorterStemmer,
+  (err, _classifier) => {
+    if (err) throw err;
+    altClass = _classifier;
+  }
+);
 
 bot.on("ready", () => {
   console.log(new Date() + " - bot ready");
 });
 
 bot.on("messageCreate", (msg) => {
-
   if (msg.channel.type === 0 && msg.member && !msg.author.bot) {
     // let serverID = msg.member.guild.id;
     // let messageID = msg.id;
@@ -94,10 +106,20 @@ bot.on("messageCreate", (msg) => {
         acc.value > curr.value ? acc : curr
       );
 
-      if (max.value > 0.8) {
+      const altClassi = altClass.getClassifications(message);
+
+      const altMax = altClassi.reduce((acc, curr) =>
+        acc.value > curr.value ? acc : curr
+      );
+
+      if (max.value > 0.8 || altMax.value > 0.8) {
         bot.createMessage(
           "735315394151055491",
-          `> ${msg.author.username}: ${message}\n\n${(max.value * 100).toFixed(2)}% confident\n\n${max.label}`
+          `> ${msg.author.username}: ${message}\n\nLRC: ${(
+            max.value * 100
+          ).toFixed(2)}% confident\nBayes: ${(altMax.value * 100).toFixed(
+            2
+          )}% confident\n\n${max.label}`
         );
       }
     }
