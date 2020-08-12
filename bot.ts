@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 if (!process.env.d_TOKEN) {
   throw new Error("no discord token set");
 }
@@ -65,9 +66,12 @@ bot.on("messageCreate", async (msg) => {
           break;
 
         case "addcmd":
-          // if (channelID === "735315394151055491" && args[0] && ( args[1] || msg.attachments[0])) {
-          //only allow adding commands from #test
-          if (args[0] && (args[1] || msg.attachments[0])) {
+          if (
+            channelID === "735315394151055491" &&
+            args[0] &&
+            (args[1] || msg.attachments[0])
+          ) {
+            //only allow adding commands from #test
             try {
               const newCmd = args.shift();
               if (newCmd && cmds[newCmd] === undefined) {
@@ -150,7 +154,7 @@ bot.on("messageCreate", async (msg) => {
                 name: command.media,
               };
             }
-            bot.createMessage("500281135226552333", command.text, file);
+            bot.createMessage(channelID, command.text, file);
           }
           break;
       }
