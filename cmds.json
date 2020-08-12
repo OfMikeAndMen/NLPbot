@@ -56,7 +56,7 @@
   "objs": {
     "text": "You can find templates and OBJs for most of the vehicles on Homecoming at https://p-h-c.xyz/phobjs"
   },
-  "donations": {
-      "text": "blublub"
+  "specs": {
+    "text": "1. Download CPU-Z (https://www.cpuid.com/softwares/cpu-z.html)\n2. Open CPU-Z\n3. Click Validate\n4. Click Submit5. Post link\n6. Go to Documents > Rockstar Games > GTA V and post the Settings.xml file here\n6. is optional"
   }
 }
