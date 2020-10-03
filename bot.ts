@@ -72,7 +72,7 @@ bot.on("messageCreate", async (msg) => {
     // let serverID = msg.member.guild.id;
     // let messageID = msg.id;
     // let channelID = msg.channel.id;
-    // let userID = msg.member.id;
+    let userID = msg.member.id;
     // let message = msg.content;
 
     if (message.substring(0, 1) == "!") {
@@ -189,6 +189,13 @@ bot.on("messageCreate", async (msg) => {
             }
           } else {
             bot.createMessage(channelID, "Not recording..");
+          }
+          break;
+
+        case "restart":
+          if (userID === "99164237187788800") {
+            await bot.createMessage(channelID, "Restarting...");
+            process.exit();
           }
           break;
 
