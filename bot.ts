@@ -12,9 +12,14 @@ import fs from "fs";
 //   BayesClassifier,
 // } from "natural";
 import axios from "axios";
-import { command } from "types/nlp";
+import { command, location } from "types/nlp";
 // import { command } from "types/nlp";
 let cmds = require("./cmds.json");
+
+let recording = false;
+let locs: {
+  locations: location[];
+} = { locations: [] };
 
 const bot = new Client(process.env.d_TOKEN, {
   // "allowedMentions": { "everyone": true },
@@ -49,12 +54,26 @@ bot.on("error", (err) => {
 });
 
 bot.on("messageCreate", async (msg) => {
-  if (msg.channel.type === 0 && msg.member && !msg.author.bot) {
+  let channelID = msg.channel.id;
+  let message = msg.content;
+
+  //if (recording) {
+  if (msg.webhookID && channelID === "761844501069037578" && recording) {
+    try {
+      console.log(JSON.parse(message));
+      let obj: location = JSON.parse(message);
+      locs.locations.push(obj);
+      msg.addReaction("✅");
+    } catch (err) {
+      bot.createMessage(channelID, "Invalid format");
+      // console.log(err);
+    }
+  } else if (msg.channel.type === 0 && msg.member) {
     // let serverID = msg.member.guild.id;
     // let messageID = msg.id;
-    let channelID = msg.channel.id;
+    // let channelID = msg.channel.id;
     // let userID = msg.member.id;
-    let message = msg.content;
+    // let message = msg.content;
 
     if (message.substring(0, 1) == "!") {
       let args = message.substring(1).split(" ");
@@ -140,6 +159,36 @@ bot.on("messageCreate", async (msg) => {
                 () => {}
               );
             }
+          }
+          break;
+
+        case "start":
+          if (!recording && channelID === "761844501069037578") {
+            bot.createMessage(channelID, "Recording start . .");
+            recording = true;
+          } else {
+            bot.createMessage(channelID, "Already recording . .");
+          }
+          break;
+
+        case "stop":
+          if (recording && channelID === "761844501069037578") {
+            recording = false;
+            if (locs.locations.length !== 0) {
+              bot.createMessage(
+                channelID,
+                "Recorded " + locs.locations.length + " locations.",
+                {
+                  file: Buffer.from(JSON.stringify(locs, null, 2)),
+                  name: "locations.json",
+                }
+              );
+              locs.locations = [];
+            } else {
+              bot.createMessage(channelID, "No locations recorded . .");
+            }
+          } else {
+            bot.createMessage(channelID, "Not recording..");
           }
           break;
 
