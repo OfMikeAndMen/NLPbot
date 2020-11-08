@@ -80,6 +80,17 @@ bot.on("messageCreate", async (msg) => {
       let cmd = args.shift();
 
       switch (cmd) {
+        case "parker":
+          try {
+            msg.channel.sendTyping();
+            let files = fs.readdirSync("./parker");
+            let file = files[Math.floor(Math.random()*files.length)]
+            let body = fs.readFileSync("./parker/" + file);
+            bot.createMessage(channelID, "", { file: body, name: file });
+        } catch (err) {
+          console.log(err);
+         }
+          break;
         case "cmds": //lists all commands in cmds.json
           bot.createMessage(channelID, Object.keys(cmds).join(" "));
           break;
