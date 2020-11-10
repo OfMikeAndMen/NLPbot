@@ -84,12 +84,12 @@ bot.on("messageCreate", async (msg) => {
           try {
             msg.channel.sendTyping();
             let files = fs.readdirSync("./parker");
-            let file = files[Math.floor(Math.random()*files.length)]
+            let file = files[Math.floor(Math.random() * files.length)];
             let body = fs.readFileSync("./parker/" + file);
             bot.createMessage(channelID, "", { file: body, name: file });
-        } catch (err) {
-          console.log(err);
-         }
+          } catch (err) {
+            console.log(err);
+          }
           break;
         case "cmds": //lists all commands in cmds.json
           bot.createMessage(channelID, Object.keys(cmds).join(" "));
@@ -174,32 +174,36 @@ bot.on("messageCreate", async (msg) => {
           break;
 
         case "start":
-          if (!recording && channelID === "761844501069037578") {
-            bot.createMessage(channelID, "Recording start . .");
-            recording = true;
-          } else {
-            bot.createMessage(channelID, "Already recording . .");
+          if (channelID === "761844501069037578") {
+            if (!recording) {
+              bot.createMessage(channelID, "Recording start . .");
+              recording = true;
+            } else {
+              bot.createMessage(channelID, "Already recording . .");
+            }
           }
           break;
 
         case "stop":
-          if (recording && channelID === "761844501069037578") {
-            recording = false;
-            if (locs.locations.length !== 0) {
-              bot.createMessage(
-                channelID,
-                "Recorded " + locs.locations.length + " locations.",
-                {
-                  file: Buffer.from(JSON.stringify(locs, null, 2)),
-                  name: "locations.json",
-                }
-              );
-              locs.locations = [];
+          if (channelID === "761844501069037578") {
+            if (recording) {
+              recording = false;
+              if (locs.locations.length !== 0) {
+                bot.createMessage(
+                  channelID,
+                  "Recorded " + locs.locations.length + " locations.",
+                  {
+                    file: Buffer.from(JSON.stringify(locs, null, 2)),
+                    name: "locations.json",
+                  }
+                );
+                locs.locations = [];
+              } else {
+                bot.createMessage(channelID, "No locations recorded . .");
+              }
             } else {
-              bot.createMessage(channelID, "No locations recorded . .");
+              bot.createMessage(channelID, "Not recording..");
             }
-          } else {
-            bot.createMessage(channelID, "Not recording..");
           }
           break;
 
