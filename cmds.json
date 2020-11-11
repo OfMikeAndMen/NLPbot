@@ -58,5 +58,36 @@
   },
   "specs": {
     "text": "1. Download CPU-Z (https://www.cpuid.com/softwares/cpu-z.html)\n2. Open CPU-Z\n3. Click Validate\n4. Click Submit5. Post link\n6. Go to Documents > Rockstar Games > GTA V and post the Settings.xml file here\n6. is optional"
+  },
+  "shitsfucked": {
+    "text": "",
+    "media": "ghCzIyfg.jpg"
+  },
+  "cops": {
+    "text": "If you get a 2-star wanted level for any reason, you will be automatically sin-binned to both prevent you from bringing cops to the race staging area (and consecutively to the race) and to promote good behaviour between races.\n\n*If you notice yourself getting a 1-star wanted level, it's a good idea to hit F6 -> Player -> Suicide.*"
+  },
+  "broughy": {
+    "text": "http://discord.gg/broughy1322"
+  },
+  "random": {
+    "text": "Random races are hosted randomly (appropriately enough). Please do not ask the host for randoms, as it can get really tiring to field those requests constantly."
+  },
+  "baggiboi": {
+    "text": "<:bigbaggiboi1:667833687093673985><:bigbaggiboi2:667833698581872661><:bigbaggiboi3:667833710808268801><:bigbaggiboi4:667833722304725014>"
+  },
+  "stats": {
+    "text": "Walls_6's stat site can be found at http://iron-pulse.com/phr/\n*NOTE: This is not an official Homecoming resource, and as such we assume no responsibility regarding the veracity or the accuracy of the data displayed on the site. The stats displayed on the site have no direct relation to role promotions.*"
+  },
+  "ticket": {
+    "text": "The error message along the lines of `No citizenFX ticket was specified. Blahblahblah.` means that the FiveM services are having issues. This isn't something we can affect, so you just have to be patient and try again later. You can also check the support channels on the FiveM Discord. Those usually light up when there's a global FiveM issue."
+  },
+  "f7": {
+    "text": "If you're having trouble getting the Charlie menu to show up, try reconnecting. If that doesn't work, make sure \"Switch to Trevor\" is bound to F7. If your keyboard has media keys and such bound to the F-keys, make sure there's not some Fn-toggle active."
+  },
+  "obs": {
+    "text": "A quick guide on how to set up OBS for recording races: https://wiki.phomecoming.com/doku.php?id=faq:obs"
+  },
+  "drag": {
+    "text": "https://www.youtube.com/watch?v=cPJm1W5oZSU"
   }
 }
