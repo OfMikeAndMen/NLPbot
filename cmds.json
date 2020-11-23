@@ -89,5 +89,8 @@
   },
   "drag": {
     "text": "https://www.youtube.com/watch?v=cPJm1W5oZSU"
+  },
+  "blackscreen": {
+    "text": "**If you get stuck in a black screen when trying to join a race, do not reconnect.** \n\nInstead, hit `F8` and type a message in the console letting the host know you've blackscreened. They will then proceed to close the race to clear your blackscreen and re-host it."
   }
 }
