@@ -152,7 +152,9 @@ bot.on("messageCreate", async (msg) => {
               fs.writeFile(
                 "./cmds.json",
                 JSON.stringify(cmds, null, 2),
-                () => {}
+                (err) => {
+                  console.log(err);
+                }
               );
             }
           }
