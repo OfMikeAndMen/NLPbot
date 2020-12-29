@@ -12,7 +12,7 @@ import fs from "fs";
 //   BayesClassifier,
 // } from "natural";
 import axios from "axios";
-import { command, location } from "types/nlp";
+import { command, location, stickies } from "types/nlp";
 // import { command } from "types/nlp";
 let cmds = require("./cmds.json");
 
@@ -20,6 +20,8 @@ let recording = false;
 let locs: {
   locations: location[];
 } = { locations: [] };
+
+let stickyMsg: stickies = {};
 
 const bot = new Client(process.env.d_TOKEN, {
   // "allowedMentions": { "everyone": true },
@@ -68,18 +70,36 @@ bot.on("messageCreate", async (msg) => {
       bot.createMessage(channelID, "Invalid format");
       // console.log(err);
     }
-  } else if (msg.channel.type === 0 && msg.member) {
-    // let serverID = msg.member.guild.id;
-    // let messageID = msg.id;
-    // let channelID = msg.channel.id;
+  } else if (msg.channel.type === 0 && msg.member && !msg.author.bot) {
     let userID = msg.member.id;
-    // let message = msg.content;
 
     if (message.substring(0, 1) == "!") {
       let args = message.substring(1).split(" ");
       let cmd = args.shift();
 
       switch (cmd) {
+        case "sticky":
+          if (
+            msg.member.roles.includes("113132195345895424") || // ADMIN
+            msg.member.roles.includes("99164237187788800") // MODERATOR
+          ) {
+            bot.deleteMessage(msg.channel.id, msg.id);
+            if (!stickyMsg[msg.channel.id]) {
+              let messText = args.join(" ");
+              let mess = await bot.createMessage(msg.channel.id, {
+                content: messText,
+                allowedMentions: { users: true },
+              });
+              stickyMsg[msg.channel.id] = {
+                text: messText,
+                msgid: mess.id,
+              };
+            } else {
+              delete stickyMsg[msg.channel.id];
+            }
+          }
+          break;
+
         case "parker":
           try {
             msg.channel.sendTyping();
@@ -232,7 +252,17 @@ bot.on("messageCreate", async (msg) => {
           break;
       }
     }
-    // } else {
+    if (stickyMsg[msg.channel.id]) {
+      let stick = stickyMsg[msg.channel.id];
+
+      bot.deleteMessage(msg.channel.id, stick.msgid);
+
+      let mess = await bot.createMessage(msg.channel.id, {
+        content: stick.text,
+        allowedMentions: { users: true },
+      });
+      stick.msgid = mess.id;
+    }
     //   const classifications = classifier.getClassifications(message);
 
     //   const max = classifications.reduce((acc, curr) =>
@@ -255,7 +285,6 @@ bot.on("messageCreate", async (msg) => {
     //       )}% confident\n\n${max.label}`
     //     );
     //   }
-    // }
   }
 });
 
