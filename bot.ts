@@ -263,7 +263,7 @@ bot.on("messageCreate", async (msg) => {
 
       let mess = await bot.createMessage(msg.channel.id, {
         embed: {
-          title: "**" + stick.text + "**",
+          title: stick.text,
           description: "📌",
           color: 0x00ffff,
         },
