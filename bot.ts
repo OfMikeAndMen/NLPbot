@@ -80,8 +80,8 @@ bot.on("messageCreate", async (msg) => {
       switch (cmd) {
         case "sticky":
           if (
-            msg.member.roles.includes("113132195345895424") || // ADMIN
-            msg.member.roles.includes("99164237187788800") // MODERATOR
+            msg.member.roles.includes("388785025686175744") || // ADMIN
+            msg.member.roles.includes("602874021662556160") // MODERATOR
           ) {
             bot.deleteMessage(msg.channel.id, msg.id);
             if (!stickyMsg[msg.channel.id]) {
