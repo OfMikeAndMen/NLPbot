@@ -13,6 +13,6 @@ export type location = {
 export type stickies = {
   [channelid: string]: {
     text: string;
-    msgid: string;
+    msgid?: string;
   };
 };

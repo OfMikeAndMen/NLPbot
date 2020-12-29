@@ -62,7 +62,6 @@ bot.on("messageCreate", async (msg) => {
   //if (recording) {
   if (msg.webhookID && channelID === "761844501069037578" && recording) {
     try {
-      console.log(JSON.parse(message));
       let obj: location = JSON.parse(message);
       locs.locations.push(obj);
       msg.addReaction("✅");
@@ -83,16 +82,15 @@ bot.on("messageCreate", async (msg) => {
             msg.member.roles.includes("388785025686175744") || // ADMIN
             msg.member.roles.includes("602874021662556160") // MODERATOR
           ) {
-            bot.deleteMessage(msg.channel.id, msg.id);
+            try {
+              bot.deleteMessage(msg.channel.id, msg.id);
+            } catch (err) {
+              console.log(err);
+            }
             if (!stickyMsg[msg.channel.id]) {
               let messText = args.join(" ");
-              let mess = await bot.createMessage(msg.channel.id, {
-                content: messText,
-                allowedMentions: { users: true },
-              });
               stickyMsg[msg.channel.id] = {
                 text: messText,
-                msgid: mess.id,
               };
             } else {
               delete stickyMsg[msg.channel.id];
@@ -255,10 +253,20 @@ bot.on("messageCreate", async (msg) => {
     if (stickyMsg[msg.channel.id]) {
       let stick = stickyMsg[msg.channel.id];
 
-      bot.deleteMessage(msg.channel.id, stick.msgid);
+      if (stick.msgid) {
+        try {
+          bot.deleteMessage(msg.channel.id, stick.msgid);
+        } catch (err) {
+          console.log(err);
+        }
+      }
 
       let mess = await bot.createMessage(msg.channel.id, {
-        content: stick.text,
+        embed: {
+          title: "**" + stick.text + "**",
+          description: "📌",
+          color: 0x00ffff,
+        },
         allowedMentions: { users: true },
       });
       stick.msgid = mess.id;
