@@ -217,12 +217,7 @@ bot.on("messageCreate", async (msg) => {
                       JSON.stringify(
                         locs,
                         (_key, value) => {
-                          if (typeof value === "number") {
-                            console.log("number");
-                            return value.toFixed(2);
-                          }
-                          console.log("möp");
-                          return value;
+                          return +value.toFixed(2);
                         },
                         2
                       )
