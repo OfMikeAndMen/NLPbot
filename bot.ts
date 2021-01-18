@@ -213,17 +213,7 @@ bot.on("messageCreate", async (msg) => {
                   channelID,
                   "Recorded " + locs.locations.length + " locations.",
                   {
-                    file: Buffer.from(
-                      JSON.stringify(
-                        locs,
-                        (_key, value) => {
-                          if (typeof value === "number")
-                            return +value.toFixed(2);
-                          return value;
-                        },
-                        2
-                      )
-                    ),
+                    file: Buffer.from(JSON.stringify(locs, null, 2)),
                     name: "locations.json",
                   }
                 );
