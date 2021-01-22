@@ -4,7 +4,7 @@ if (!process.env.d_TOKEN) {
   throw new Error("no discord token set");
 }
 
-import { Client, Guild, MessageFile } from "eris";
+import { Client, MessageFile } from "eris";
 import fs from "fs";
 // import {
 //   PorterStemmer,
