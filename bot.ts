@@ -298,12 +298,14 @@ bot.on("messageCreate", async (msg) => {
 
 bot.on("guildMemberUpdate", async (g, m, o) => {
   if (m && m.nick !== o.nick && m.roles.includes("763349380165664808")) {
-    bot.editGuildMember(
+    await bot.removeGuildMemberRole(g.id, m.id, "763349380165664808");
+    await bot.editGuildMember(
       g.id,
       m.id,
       { nick: o.nick || "" },
       "Nick Change Block"
     );
+    await bot.addGuildMemberRole(g.id, m.id, "763349380165664808");
   }
 });
 
