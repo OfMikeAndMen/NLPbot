@@ -72,7 +72,7 @@ bot.on("messageCreate", async (msg) => {
   } else if (msg.channel.type === 0 && msg.member && !msg.author.bot) {
     let userID = msg.member.id;
 
-    if (message.substring(0, 1) == "!") {
+    if (message.substring(0, 1) === "!") {
       let args = message.substring(1).split(" ");
       let cmd = args.shift();
 
@@ -292,6 +292,17 @@ bot.on("messageCreate", async (msg) => {
     //       )}% confident\n\n${max.label}`
     //     );
     //   }
+  }
+});
+
+bot.on("guildMemberUpdate", async (g, m, o) => {
+  if (m.nick !== o.nick && m.roles.includes("763349380165664808")) {
+    bot.editGuildMember(
+      g.id,
+      m.id,
+      { nick: o.nick || "" },
+      "Nick Change Block"
+    );
   }
 });
 
