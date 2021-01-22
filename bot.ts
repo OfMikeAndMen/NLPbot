@@ -296,6 +296,9 @@ bot.on("messageCreate", async (msg) => {
 });
 
 bot.on("guildMemberUpdate", async (g, m, o) => {
+  console.log(m.nick);
+  console.log(o.nick);
+  console.log(m.roles);
   if (m.nick !== o.nick && m.roles.includes("763349380165664808")) {
     bot.editGuildMember(
       g.id,
