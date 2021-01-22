@@ -49,6 +49,7 @@ const bot = new Client(process.env.d_TOKEN, {
 
 bot.on("ready", () => {
   console.log(new Date() + " - bot ready");
+  bot.guilds.get("388742985619079188")?.fetchAllMembers();
 });
 
 bot.on("error", (err) => {
@@ -296,8 +297,7 @@ bot.on("messageCreate", async (msg) => {
 });
 
 bot.on("guildMemberUpdate", async (g, m, o) => {
-  let gm = await getGuildMember(g, m.id);
-  if (gm && gm.nick !== o.nick && gm.roles.includes("763349380165664808")) {
+  if (m && m.nick !== o.nick && m.roles.includes("763349380165664808")) {
     bot.editGuildMember(
       g.id,
       m.id,
@@ -309,9 +309,9 @@ bot.on("guildMemberUpdate", async (g, m, o) => {
 
 bot.connect(); // Get the bot to connect to Discord
 
-const getGuildMember = async (guild: Guild, userID: string) => {
-  if (!guild.members.has(userID)) {
-    await guild.fetchMembers({ userIDs: [userID] });
-  }
-  return guild.members.get(userID);
-};
+// const getGuildMember = async (guild: Guild, userID: string) => {
+//   if (!guild.members.has(userID)) {
+//     await guild.fetchMembers({ userIDs: [userID] });
+//   }
+//   return guild.members.get(userID);
+// };
