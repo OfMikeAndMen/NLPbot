@@ -4,7 +4,7 @@ if (!process.env.d_TOKEN) {
   throw new Error("no discord token set");
 }
 
-import { Client, MessageFile } from "eris";
+import { Client, Guild, MessageFile } from "eris";
 import fs from "fs";
 // import {
 //   PorterStemmer,
@@ -296,10 +296,8 @@ bot.on("messageCreate", async (msg) => {
 });
 
 bot.on("guildMemberUpdate", async (g, m, o) => {
-  console.log(m.nick);
-  console.log(o.nick);
-  console.log(m.roles);
-  if (m.nick !== o.nick && m.roles.includes("763349380165664808")) {
+  let gm = await getGuildMember(g, m.id);
+  if (gm && gm.nick !== o.nick && gm.roles.includes("763349380165664808")) {
     bot.editGuildMember(
       g.id,
       m.id,
@@ -310,3 +308,10 @@ bot.on("guildMemberUpdate", async (g, m, o) => {
 });
 
 bot.connect(); // Get the bot to connect to Discord
+
+const getGuildMember = async (guild: Guild, userID: string) => {
+  if (!guild.members.has(userID)) {
+    await guild.fetchMembers({ userIDs: [userID] });
+  }
+  return guild.members.get(userID);
+};
