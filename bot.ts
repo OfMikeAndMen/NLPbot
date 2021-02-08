@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-if (!process.env.d_TOKEN) {
+if (!process.env.d_TEST_TOKEN) {
   throw new Error("no discord token set");
 }
 
@@ -13,6 +13,9 @@ import fs from "fs";
 // } from "natural";
 import axios from "axios";
 import { command, location, stickies } from "types/nlp";
+import { interaction } from "types/interactions";
+import { respond } from "./slashCommands/slashCommands";
+// import register from "./slashCommands";
 // import { command } from "types/nlp";
 let cmds = require("./cmds.json");
 
@@ -23,7 +26,7 @@ let locs: {
 
 let stickyMsg: stickies = {};
 
-const bot = new Client(process.env.d_TOKEN, {
+const bot = new Client(process.env.d_TEST_TOKEN, {
   // "allowedMentions": { "everyone": true },
   autoreconnect: true,
 });
@@ -49,6 +52,7 @@ const bot = new Client(process.env.d_TOKEN, {
 
 bot.on("ready", () => {
   console.log(new Date() + " - bot ready");
+  // registerAll();
   bot.guilds.get("388742985619079188")?.fetchAllMembers();
 });
 
@@ -307,6 +311,12 @@ bot.on("guildMemberUpdate", async (g, m, o) => {
     );
     await bot.addGuildMemberRole(g.id, m.id, "763349380165664808");
   }
+});
+
+bot.on("rawWS", (e: any) => {
+  if (e.t !== "INTERACTION_CREATE") return;
+
+  respond(e.d as interaction);
 });
 
 bot.connect(); // Get the bot to connect to Discord
