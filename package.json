@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node bot.ts",
+    "start:debug": "ts-node bot.ts",
     "train": "ts-node ./classifier/trainer.ts"
   },
   "repository": {
