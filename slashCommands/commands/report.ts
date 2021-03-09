@@ -37,6 +37,13 @@ const respond = async (data: Interaction, bot: Client) => {
             allow: 0x400,
             deny: 0,
           },
+          {
+            id: GUILD,
+            type: "role",
+            allow: 0,
+            deny: 0x400,
+          },
+          // Add other permission overwrites here..
         ],
       }
     );
