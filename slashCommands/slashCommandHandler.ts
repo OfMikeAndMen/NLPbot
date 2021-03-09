@@ -5,8 +5,8 @@ import { Client } from "eris";
 import { ApplicationCommand, Command, Interaction } from "types/slashCommands";
 // import { interaction } from "types/slashCommands";
 
-const token = process.env.d_TEST_TOKEN;
-const appID = process.env.d_TEST_CLIENT_ID;
+const token = process.env.d_TOKEN;
+const appID = process.env.d_CLIENT_ID;
 // const BOT_TEST = "500281135226552331";
 // const PROJECT_HOMECOMING = "388742985619079188";
 const options: AxiosRequestConfig = {
