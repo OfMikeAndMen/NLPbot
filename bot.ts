@@ -11,12 +11,16 @@ import fs from "fs";
 //   LogisticRegressionClassifier,
 //   BayesClassifier,
 // } from "natural";
-import axios from "axios";
+
 import { command, location, stickies } from "types/nlp";
-import { interaction } from "types/interactions";
-import { respond } from "./slashCommands/slashCommands";
-// import register from "./slashCommands";
+import { Interaction } from "types/slashCommands";
+// import { interaction } from "types/slashCommands";
+import { respond } from "./slashCommands/slashCommandHandler";
+import { storeImageFromFile } from "./utils/utils";
 // import { command } from "types/nlp";
+
+const MANAGEMENT = "818162426578731069";
+
 let cmds = require("./cmds.json");
 
 let recording = false;
@@ -52,7 +56,6 @@ const bot = new Client(process.env.d_TEST_TOKEN, {
 
 bot.on("ready", () => {
   console.log(new Date() + " - bot ready");
-  // registerAll();
   bot.guilds.get("388742985619079188")?.fetchAllMembers();
 });
 
@@ -64,7 +67,6 @@ bot.on("messageCreate", async (msg) => {
   let channelID = msg.channel.id;
   let message = msg.content;
 
-  //if (recording) {
   if (msg.webhookID && channelID === "761844501069037578" && recording) {
     try {
       let obj: location = JSON.parse(message);
@@ -72,7 +74,6 @@ bot.on("messageCreate", async (msg) => {
       msg.addReaction("✅");
     } catch (err) {
       bot.createMessage(channelID, "Invalid format");
-      // console.log(err);
     }
   } else if (msg.channel.type === 0 && msg.member && !msg.author.bot) {
     let userID = msg.member.id;
@@ -83,10 +84,7 @@ bot.on("messageCreate", async (msg) => {
 
       switch (cmd) {
         case "sticky":
-          if (
-            msg.member.roles.includes("388785025686175744") || // ADMIN
-            msg.member.roles.includes("602874021662556160") // MODERATOR
-          ) {
+          if (msg.member.roles.includes(MANAGEMENT)) {
             try {
               bot.deleteMessage(msg.channel.id, msg.id);
             } catch (err) {
@@ -135,17 +133,14 @@ bot.on("messageCreate", async (msg) => {
                 if (msg.attachments[0]) {
                   bot.sendChannelTyping(channelID);
 
-                  const file = await axios.get(msg.attachments[0].proxy_url, {
-                    responseType: "stream",
-                  });
+                  let filename = msg.attachments[0].filename;
 
-                  file.data.pipe(
-                    fs.createWriteStream(
-                      "./media/" + msg.attachments[0].filename
-                    )
+                  await storeImageFromFile(
+                    msg.attachments[0].proxy_url,
+                    `./media/" + ${filename}`
                   );
 
-                  cmds[newCmd].media = msg.attachments[0].filename;
+                  cmds[newCmd].media = filename;
                 }
 
                 bot.createMessage(channelID, "Added command: " + newCmd);
@@ -316,7 +311,7 @@ bot.on("guildMemberUpdate", async (g, m, o) => {
 bot.on("rawWS", (e: any) => {
   if (e.t !== "INTERACTION_CREATE") return;
 
-  respond(e.d as interaction);
+  respond(e.d as Interaction, bot);
 });
 
 bot.connect(); // Get the bot to connect to Discord
