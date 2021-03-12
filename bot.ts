@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-if (!process.env.d_TOKEN) {
+if (!process.env.d_TEST_TOKEN) {
   throw new Error("no discord token set");
 }
 
@@ -30,7 +30,7 @@ let locs: {
 
 let stickyMsg: stickies = {};
 
-const bot = new Client(process.env.d_TOKEN, {
+const bot = new Client(process.env.d_TEST_TOKEN, {
   // "allowedMentions": { "everyone": true },
   autoreconnect: true,
 });
