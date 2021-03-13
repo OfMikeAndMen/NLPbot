@@ -11,15 +11,19 @@ import fs from "fs";
 //   LogisticRegressionClassifier,
 //   BayesClassifier,
 // } from "natural";
-
-import { command, location, stickies } from "types/nlp";
-import { Interaction } from "types/slashCommands";
-// import { interaction } from "types/slashCommands";
-import { respond } from "./slashCommands/slashCommandHandler";
+// import { respond } from "./slashCommands/slashCommandHandler";
 import { storeImageFromFile } from "./utils/utils";
-// import { command } from "types/nlp";
 
+// TYPES
+import { command, location, stickies } from "types/nlp";
+// import { interaction } from "types/slashCommands";
+
+// ROLES
 const MANAGEMENT = "818162426578731069";
+
+// CHANNELS
+const SIN_BINNED = "820276170871930900";
+const TEST_CHANNEL = "735315394151055491";
 
 let cmds = require("./cmds.json");
 
@@ -29,6 +33,8 @@ let locs: {
 } = { locations: [] };
 
 let stickyMsg: stickies = {};
+
+let openSins: { [key: string]: NodeJS.Timeout } = {};
 
 const bot = new Client(process.env.d_TEST_TOKEN, {
   // "allowedMentions": { "everyone": true },
@@ -75,223 +81,234 @@ bot.on("messageCreate", async (msg) => {
     } catch (err) {
       bot.createMessage(channelID, "Invalid format");
     }
-  } else if (msg.channel.type === 0 && msg.member && !msg.author.bot) {
-    let userID = msg.member.id;
+  } else if (msg.channel.type === 0) {
+    if (channelID === SIN_BINNED) {
+      if (msg.webhookID) {
+        // HANDLE SIN-BINS
+        openSins[msg.id] = setTimeout(sinReminder, 30 * 60 * 1000);
+      } else if (msg.messageReference && !msg.author.bot) {
+        clearTimeout(openSins[msg.messageReference.messageID]);
+        // HANDLE RESPONSES
+      }
+    }
+    if (msg.member && !msg.author.bot) {
+      let userID = msg.member.id;
 
-    if (message.substring(0, 1) === "!") {
-      let args = message.substring(1).split(" ");
-      let cmd = args.shift();
+      if (message.substring(0, 1) === "!") {
+        let args = message.substring(1).split(" ");
+        let cmd = args.shift();
 
-      switch (cmd) {
-        case "sticky":
-          if (msg.member.roles.includes(MANAGEMENT)) {
+        switch (cmd) {
+          case "sticky":
+            if (msg.member.roles.includes(MANAGEMENT)) {
+              try {
+                bot.deleteMessage(msg.channel.id, msg.id);
+              } catch (err) {
+                console.log(err);
+              }
+              if (!stickyMsg[msg.channel.id]) {
+                let messText = args.join(" ");
+                stickyMsg[msg.channel.id] = {
+                  text: messText,
+                };
+              } else {
+                delete stickyMsg[msg.channel.id];
+              }
+            }
+            break;
+
+          case "parker":
             try {
-              bot.deleteMessage(msg.channel.id, msg.id);
+              msg.channel.sendTyping();
+              let files = fs.readdirSync("./parker");
+              let file = files[Math.floor(Math.random() * files.length)];
+              let body = fs.readFileSync("./parker/" + file);
+              bot.createMessage(channelID, "", { file: body, name: file });
             } catch (err) {
               console.log(err);
             }
-            if (!stickyMsg[msg.channel.id]) {
-              let messText = args.join(" ");
-              stickyMsg[msg.channel.id] = {
-                text: messText,
-              };
-            } else {
-              delete stickyMsg[msg.channel.id];
-            }
-          }
-          break;
+            break;
+          case "cmds": //lists all commands in cmds.json
+            bot.createMessage(channelID, Object.keys(cmds).join(" "));
+            break;
 
-        case "parker":
-          try {
-            msg.channel.sendTyping();
-            let files = fs.readdirSync("./parker");
-            let file = files[Math.floor(Math.random() * files.length)];
-            let body = fs.readFileSync("./parker/" + file);
-            bot.createMessage(channelID, "", { file: body, name: file });
-          } catch (err) {
-            console.log(err);
-          }
-          break;
-        case "cmds": //lists all commands in cmds.json
-          bot.createMessage(channelID, Object.keys(cmds).join(" "));
-          break;
+          case "addcmd":
+            if (
+              channelID === TEST_CHANNEL &&
+              args[0] &&
+              (args[1] || msg.attachments[0])
+            ) {
+              //only allow adding commands from #test
+              try {
+                const newCmd = args.shift();
+                if (newCmd && cmds[newCmd] === undefined) {
+                  //dont add command if it exists already
 
-        case "addcmd":
-          if (
-            channelID === "735315394151055491" &&
-            args[0] &&
-            (args[1] || msg.attachments[0])
-          ) {
-            //only allow adding commands from #test
-            try {
-              const newCmd = args.shift();
-              if (newCmd && cmds[newCmd] === undefined) {
-                //dont add command if it exists already
+                  cmds[newCmd] = { text: args.join(" ") };
 
-                cmds[newCmd] = { text: args.join(" ") };
+                  if (msg.attachments[0]) {
+                    bot.sendChannelTyping(channelID);
 
-                if (msg.attachments[0]) {
-                  bot.sendChannelTyping(channelID);
+                    let filename = msg.attachments[0].filename;
 
-                  let filename = msg.attachments[0].filename;
+                    await storeImageFromFile(
+                      msg.attachments[0].proxy_url,
+                      `./media/" + ${filename}`
+                    );
 
-                  await storeImageFromFile(
-                    msg.attachments[0].proxy_url,
-                    `./media/" + ${filename}`
+                    cmds[newCmd].media = filename;
+                  }
+
+                  bot.createMessage(channelID, "Added command: " + newCmd);
+
+                  fs.writeFile(
+                    "./cmds.json",
+                    JSON.stringify(cmds, null, 2),
+                    () => {}
                   );
-
-                  cmds[newCmd].media = filename;
                 }
+              } catch (err) {
+                console.log(err);
+              }
+            }
+            break;
 
-                bot.createMessage(channelID, "Added command: " + newCmd);
+          case "editcmd":
+            if (channelID === TEST_CHANNEL && args[0] && args[1]) {
+              //only allow editing commands from #test
+              const newCmd = args.shift();
+              if (newCmd && cmds[newCmd] !== undefined) {
+                //make sure command exists
+                cmds[newCmd] = { text: args.join(" ") };
+                bot.createMessage(channelID, "Edited command: " + newCmd);
+                fs.writeFile(
+                  "./cmds.json",
+                  JSON.stringify(cmds, null, 2),
+                  (err) => {
+                    console.log(err);
+                  }
+                );
+              }
+            }
+            break;
 
+          case "deletecmd":
+            if (channelID === TEST_CHANNEL && args[0]) {
+              //only allow editing commands from #test
+              const newCmd = args.shift();
+              if (newCmd && cmds[newCmd] !== undefined) {
+                //make sure command exists
+                delete cmds[newCmd]; //delete command
+                bot.createMessage(channelID, "Deleted command: " + newCmd);
                 fs.writeFile(
                   "./cmds.json",
                   JSON.stringify(cmds, null, 2),
                   () => {}
                 );
               }
-            } catch (err) {
-              console.log(err);
             }
-          }
-          break;
+            break;
 
-        case "editcmd":
-          if (channelID === "735315394151055491" && args[0] && args[1]) {
-            //only allow editing commands from #test
-            const newCmd = args.shift();
-            if (newCmd && cmds[newCmd] !== undefined) {
-              //make sure command exists
-              cmds[newCmd] = { text: args.join(" ") };
-              bot.createMessage(channelID, "Edited command: " + newCmd);
-              fs.writeFile(
-                "./cmds.json",
-                JSON.stringify(cmds, null, 2),
-                (err) => {
-                  console.log(err);
-                }
-              );
-            }
-          }
-          break;
-
-        case "deletecmd":
-          if (channelID === "735315394151055491" && args[0]) {
-            //only allow editing commands from #test
-            const newCmd = args.shift();
-            if (newCmd && cmds[newCmd] !== undefined) {
-              //make sure command exists
-              delete cmds[newCmd]; //delete command
-              bot.createMessage(channelID, "Deleted command: " + newCmd);
-              fs.writeFile(
-                "./cmds.json",
-                JSON.stringify(cmds, null, 2),
-                () => {}
-              );
-            }
-          }
-          break;
-
-        case "start":
-          if (channelID === "761844501069037578") {
-            if (!recording) {
-              bot.createMessage(channelID, "Recording start . .");
-              recording = true;
-            } else {
-              bot.createMessage(channelID, "Already recording . .");
-            }
-          }
-          break;
-
-        case "stop":
-          if (channelID === "761844501069037578") {
-            if (recording) {
-              recording = false;
-              if (locs.locations.length !== 0) {
-                bot.createMessage(
-                  channelID,
-                  "Recorded " + locs.locations.length + " locations.",
-                  {
-                    file: Buffer.from(JSON.stringify(locs, null, 2)),
-                    name: "locations.json",
-                  }
-                );
-                locs.locations = [];
+          case "start":
+            if (channelID === "761844501069037578") {
+              if (!recording) {
+                bot.createMessage(channelID, "Recording start . .");
+                recording = true;
               } else {
-                bot.createMessage(channelID, "No locations recorded . .");
+                bot.createMessage(channelID, "Already recording . .");
               }
-            } else {
-              bot.createMessage(channelID, "Not recording..");
             }
-          }
-          break;
+            break;
 
-        case "restart":
-          if (userID === "99164237187788800") {
-            await bot.createMessage(channelID, "Restarting...");
-            process.exit();
-          }
-          break;
-
-        default:
-          if (cmd && cmds[cmd]) {
-            const command: command = cmds[cmd];
-            let file: MessageFile | undefined;
-            if (cmds[cmd].media) {
-              bot.sendChannelTyping(channelID);
-              file = {
-                file: fs.readFileSync("./media/" + command.media),
-                name: command.media,
-              };
+          case "stop":
+            if (channelID === "761844501069037578") {
+              if (recording) {
+                recording = false;
+                if (locs.locations.length !== 0) {
+                  bot.createMessage(
+                    channelID,
+                    "Recorded " + locs.locations.length + " locations.",
+                    {
+                      file: Buffer.from(JSON.stringify(locs, null, 2)),
+                      name: "locations.json",
+                    }
+                  );
+                  locs.locations = [];
+                } else {
+                  bot.createMessage(channelID, "No locations recorded . .");
+                }
+              } else {
+                bot.createMessage(channelID, "Not recording..");
+              }
             }
-            bot.createMessage(channelID, command.text, file);
-          }
-          break;
-      }
-    }
-    if (stickyMsg[msg.channel.id]) {
-      let stick = stickyMsg[msg.channel.id];
+            break;
 
-      if (stick.msgid) {
-        try {
-          bot.deleteMessage(msg.channel.id, stick.msgid);
-        } catch (err) {
-          console.log(err);
+          case "restart":
+            if (userID === "99164237187788800") {
+              await bot.createMessage(channelID, "Restarting...");
+              process.exit();
+            }
+            break;
+
+          default:
+            if (cmd && cmds[cmd]) {
+              const command: command = cmds[cmd];
+              let file: MessageFile | undefined;
+              if (cmds[cmd].media) {
+                bot.sendChannelTyping(channelID);
+                file = {
+                  file: fs.readFileSync("./media/" + command.media),
+                  name: command.media,
+                };
+              }
+              bot.createMessage(channelID, command.text, file);
+            }
+            break;
         }
       }
+      if (stickyMsg[msg.channel.id]) {
+        let stick = stickyMsg[msg.channel.id];
 
-      let mess = await bot.createMessage(msg.channel.id, {
-        embed: {
-          description: stick.text + "\n📌",
-          color: 0x00ffff,
-        },
-        allowedMentions: { users: true },
-      });
-      stick.msgid = mess.id;
+        if (stick.msgid) {
+          try {
+            bot.deleteMessage(msg.channel.id, stick.msgid);
+          } catch (err) {
+            console.log(err);
+          }
+        }
+
+        let mess = await bot.createMessage(msg.channel.id, {
+          embed: {
+            description: stick.text + "\n📌",
+            color: 0x00ffff,
+          },
+          allowedMentions: { users: true },
+        });
+        stick.msgid = mess.id;
+      }
+      //   const classifications = classifier.getClassifications(message);
+
+      //   const max = classifications.reduce((acc, curr) =>
+      //     acc.value > curr.value ? acc : curr
+      //   );
+
+      //   const altClassi = altClass.getClassifications(message);
+
+      //   const altMax = altClassi.reduce((acc, curr) =>
+      //     acc.value > curr.value ? acc : curr
+      //   );
+
+      //   if (max.value > 0.8 || altMax.value > 0.8) {
+      //     bot.createMessage(
+      //       TEST_CHANNEL,
+      //       `> ${msg.author.username}: ${message}\n\nLRC: ${(
+      //         max.value * 100
+      //       ).toFixed(2)}% confident\nBayes: ${(altMax.value * 100).toFixed(
+      //         2
+      //       )}% confident\n\n${max.label}`
+      //     );
+      //   }
     }
-    //   const classifications = classifier.getClassifications(message);
-
-    //   const max = classifications.reduce((acc, curr) =>
-    //     acc.value > curr.value ? acc : curr
-    //   );
-
-    //   const altClassi = altClass.getClassifications(message);
-
-    //   const altMax = altClassi.reduce((acc, curr) =>
-    //     acc.value > curr.value ? acc : curr
-    //   );
-
-    //   if (max.value > 0.8 || altMax.value > 0.8) {
-    //     bot.createMessage(
-    //       "735315394151055491",
-    //       `> ${msg.author.username}: ${message}\n\nLRC: ${(
-    //         max.value * 100
-    //       ).toFixed(2)}% confident\nBayes: ${(altMax.value * 100).toFixed(
-    //         2
-    //       )}% confident\n\n${max.label}`
-    //     );
-    //   }
   }
 });
 
@@ -311,7 +328,7 @@ bot.on("guildMemberUpdate", async (g, m, o) => {
 bot.on("rawWS", (e: any) => {
   if (e.t !== "INTERACTION_CREATE") return;
 
-  respond(e.d as Interaction, bot);
+  // respond(e.d as Interaction, bot);
 });
 
 bot.connect(); // Get the bot to connect to Discord
@@ -322,3 +339,7 @@ bot.connect(); // Get the bot to connect to Discord
 //   }
 //   return guild.members.get(userID);
 // };
+
+const sinReminder = async () => {
+  bot.createMessage("500281135226552333", "bin not filled after 30 mins");
+};
