@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node bot.ts",
+    "start:debug": "ts-node bot.ts",
     "train": "ts-node ./classifier/trainer.ts"
   },
   "repository": {
@@ -23,7 +24,7 @@
     "@types/node": "^14.0.27",
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
-    "eris": "^0.13.3",
+    "eris": "^0.14.0",
     "natural": "^2.1.5",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
