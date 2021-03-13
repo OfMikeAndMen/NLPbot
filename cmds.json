@@ -8,9 +8,6 @@
   "fetching": {
     "text": "If you're unable to open the F7 menu and it says ``Fetching Perms`` at the bottom of the screen, reconnect to the server."
   },
-  "spam": {
-    "text": "If you see the message ``Spam Timeout`` when trying to connect, it means that you have been trying to connect too many times in a short period of time and have been given a 48-hour automated ban. **This ban cannot be lifted manually.**\nFor information on how to connect in a more measured manner, check out #faq Q20b."
-  },
   "rookie": {
     "text": " In order to gain the Rookie role, all you need to do is finish races without DNFing, being binned or kicked. This role is assigned automatically when you meet the necessary requirements.\n*We won't tell you what the requirements are, so don't ask.*"
   },
@@ -18,7 +15,7 @@
     "text": "In order to gain the Regular role, all you need to do is finish races without DNFing, being binned or kicked. This role is assigned automatically when you meet the necessary requirements.\n*We won't tell you what the requirements are, so don't ask.*"
   },
   "statsite": {
-    "text": "Walls_6's stat site can be found at http://iron-pulse.com/phr/\n*NOTE: This is not an official Homecoming resource, and as such we assume no responsibility regarding the veracity or the accuracy of the data displayed on the site. The stats displayed on the site have no direct relation to role promotions.*"
+    "text": "The stat site has gone the way of the dodo. It's stone dead. Definitely deceased. It's bleedin' demised. It has passed on. It is no more. It has ceased to be. It's expired and gone to meet its maker. It's a stiff. Bereft of life, it rests in peace. It has kicked the bucket. It's shuffled off this mortal coil, run down the curtain and joined the bleedin' choir invisible."
   },
   "euserver": {
     "text": "There are no plans to set up a server in Europe. We have players from all over the world and the current server location (New York) is the best middle-ground option to enable everyone to play on the same server."
@@ -57,7 +54,7 @@
     "text": "You can find templates and OBJs for most of the vehicles on Homecoming at https://p-h-c.xyz/phobjs"
   },
   "specs": {
-    "text": "1. Download CPU-Z (https://www.cpuid.com/softwares/cpu-z.html)\n2. Open CPU-Z\n3. Click Validate\n4. Click Submit5. Post link\n6. Go to Documents > Rockstar Games > GTA V and post the Settings.xml file here\n6. is optional"
+    "text": "1. Download CPU-Z (https://www.cpuid.com/softwares/cpu-z.html)\n2. Open CPU-Z\n3. Click Validate\n4. Click Submit\n5. Post link\n*(Optional)* 6. Go to Documents > Rockstar Games > GTA V and post the Settings.xml file here"
   },
   "shitsfucked": {
     "text": "",
@@ -76,7 +73,7 @@
     "text": "<:bigbaggiboi1:667833687093673985><:bigbaggiboi2:667833698581872661><:bigbaggiboi3:667833710808268801><:bigbaggiboi4:667833722304725014>"
   },
   "stats": {
-    "text": "Walls_6's stat site can be found at http://iron-pulse.com/phr/\n*NOTE: This is not an official Homecoming resource, and as such we assume no responsibility regarding the veracity or the accuracy of the data displayed on the site. The stats displayed on the site have no direct relation to role promotions.*"
+    "text": "The stat site has gone the way of the dodo. It's stone dead. Definitely deceased. It's bleedin' demised. It has passed on. It is no more. It has ceased to be. It's expired and gone to meet its maker. It's a stiff. Bereft of life, it rests in peace. It has kicked the bucket. It's shuffled off this mortal coil, run down the curtain and joined the bleedin' choir invisible."
   },
   "ticket": {
     "text": "The error message along the lines of `No citizenFX ticket was specified. Blahblahblah.` means that the FiveM services are having issues. This isn't something we can affect, so you just have to be patient and try again later. You can also check the support channels on the FiveM Discord. Those usually light up when there's a global FiveM issue."
@@ -91,6 +88,27 @@
     "text": "https://www.youtube.com/watch?v=cPJm1W5oZSU"
   },
   "blackscreen": {
-    "text": "**If you get stuck in a black screen when trying to join a race, do not reconnect.** \n\nInstead, hit `F8` and type a message in the console letting the host know you've blackscreened. They will then proceed to close the race to clear your blackscreen and re-host it."
+    "text": "If you get stuck in a black screen when trying to join a race, hit F8 and type a message in the console letting the host know you've blackscreened. They will then proceed to close the race to clear your blackscreen and re-host it.\n\nIf it happens during a race (usually happens when respawning), reconnect to the server and choose the \"Rejoin\" option in the F7 menu.\n\nIf you blackscreen when a race is closed (aka. you've been waiting in the arena and are about to be teleported to freeroam), reconnect."
+  },
+  "join": {
+    "text": "In order to join a race all you need to do is join a racing server, wait for a race to be hosted and follow the instructions that show up at the bottom of the screen."
+  },
+  "launcher": {
+    "text": "**Try the snazzy Homecoming Launcher today!**\nIt comes with such amazing features as:\n* Convenient one-click connecting!\n* Player lists so you can see if your nemesis is on the server or not!\n* Track lists! Don't know where to find that sick track people are talking about? Worry no more!\n* Out of ideas? Use the randomiser and let it decide for you!\n* Want to make the launcher look like absolute ass? Now you can with customisable colours!\n* More features coming as Applez gets everything sorted!\n\n**Get yours by grabbing the installer from the pinned messages in <#756793848985944094>!**"
+  },
+  "disconnect": {
+    "text": "**__If you've lost access to your account, do the following:__**\n\n**Steam:** If you're unable to log in to your __Steam__ account and need to register with a new account, enter the command `!unregister` into <#395879804236464128> to disconnect the current account and get a new code from the Testing server. \n**This is only if you've lost your Steam account.**\n\n**Discord:** If you've lost access to your __Discord__ account, log on to the Testing server and enter the command `/unregister` into chat. After that's done, reconnect to the server and you should be able to get a new code to register with the new account. \n**Do this only if you've lost access to your old Discord account.**"
+  },
+  "ip": {
+    "text": "You can find the addresses for the servers in the <#388989274156040193>. A lot of other useful information there as well, so go read it."
+  },
+  "spam": {
+    "text": "If you see the message `Spam Timeout` when trying to connect, it means that you have been trying to connect too many times in a short period of time and have been given a 48-hour automated ban. \n**This ban cannot be lifted manually.**\n\nFor information on how to connect in a more measured manner, check out <#388989274156040193> Q20."
+  },
+  "cache": {
+    "text": "**To clear the FiveM cache do the following:**\n* Close the FiveM client\n* Delete `%localappdata%\\FiveM\\FiveM Application Data\\caches.xml`\n* Delete `%localappdata%\\FiveM\\FiveM Application Data\\cache\\priv`\n\n**NOTE: Clearing the cache is to be used as the absolute last resort, as it means you'll have to download all the custom assets again. Do this only if** ***__everything__*** **else has failed.**"
+  },
+  "binned": {
+    "text": "If you're unclear on why you got binned, either **politely** ask the host after the race or wait for them to fill in the bin report in <#820276170871930900>."
   }
 }
