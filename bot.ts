@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-if (!process.env.d_TOKEN) {
+if (!process.env.d_TEST_TOKEN) {
   throw new Error("no discord token set");
 }
 
@@ -17,6 +17,8 @@ import { storeImageFromFile } from "./utils/utils";
 // TYPES
 import { command, location, stickies } from "types/nlp";
 // import { interaction } from "types/slashCommands";
+
+const PROJECT_HOMECOMING = "388742985619079188";
 
 // ROLES
 const MANAGEMENT = "818162426578731069";
@@ -36,7 +38,7 @@ let stickyMsg: stickies = {};
 
 let openSins: { [key: string]: NodeJS.Timeout } = {};
 
-const bot = new Client(process.env.d_TOKEN, {
+const bot = new Client(process.env.d_TEST_TOKEN, {
   // "allowedMentions": { "everyone": true },
   autoreconnect: true,
 });
@@ -60,9 +62,9 @@ const bot = new Client(process.env.d_TOKEN, {
 //   }
 // );
 
-bot.on("ready", () => {
+bot.on("ready", async () => {
   console.log(new Date() + " - bot ready");
-  bot.guilds.get("388742985619079188")?.fetchAllMembers();
+  bot.guilds.get(PROJECT_HOMECOMING)?.fetchAllMembers();
 });
 
 bot.on("error", (err) => {
@@ -85,9 +87,27 @@ bot.on("messageCreate", async (msg) => {
     if (channelID === SIN_BINNED) {
       if (msg.webhookID) {
         // HANDLE SIN-BINS
-        openSins[msg.id] = setTimeout(sinReminder, 30 * 60 * 1000);
-      } else if (msg.messageReference && !msg.author.bot) {
+        let u: string | undefined;
+        const reg = msg.content.match(
+          /^(?:MAIN|RACING2|TEST): (.*) SIN-BINNED .*$/im
+        );
+        if (reg) {
+          u = msg.channel.guild.members.find(
+            (e) => e.username === reg[1] || e.nick === reg[1]
+          )?.id;
+        }
+        openSins[msg.id] = setTimeout(() => sinReminder(u), 30 * 60 * 1000);
+      } else if (
+        msg.messageReference &&
+        msg.member &&
+        openSins[msg.messageReference.messageID]
+      ) {
+        bot.createMessage(
+          "500281135226552333",
+          `<@${msg.member.id}> filled in their bin`
+        );
         clearTimeout(openSins[msg.messageReference.messageID]);
+        delete openSins[msg.messageReference.messageID];
         // HANDLE RESPONSES
       }
     }
@@ -340,6 +360,6 @@ bot.connect(); // Get the bot to connect to Discord
 //   return guild.members.get(userID);
 // };
 
-const sinReminder = async () => {
-  bot.createMessage("500281135226552333", "bin not filled after 30 mins");
+const sinReminder = async (id: string | undefined) => {
+  bot.createMessage("500281135226552333", `${id ? `<@${id}> - ` : ""}Please fill in your bin!`);
 };
