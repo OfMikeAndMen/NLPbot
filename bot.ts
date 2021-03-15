@@ -93,8 +93,14 @@ bot.on("messageCreate", async (msg) => {
         );
         if (reg) {
           u = msg.channel.guild.members.find(
-            (e) => e.username === reg[1] || e.nick === reg[1]
+            (e) =>
+              e.username === reg[1] ||
+              (e.nick === reg[1] && e.roles.includes("395378176349700097"))
           )?.id;
+          bot.createMessage(
+            "500281135226552333",
+            `${u ? `<@${u}> - ` : ""}Found`
+          );
         }
         openSins[msg.id] = setTimeout(() => sinReminder(u), 30 * 60 * 1000);
       } else if (
@@ -102,10 +108,6 @@ bot.on("messageCreate", async (msg) => {
         msg.member &&
         openSins[msg.messageReference.messageID]
       ) {
-        bot.createMessage(
-          "500281135226552333",
-          `<@${msg.member.id}> filled in their bin`
-        );
         clearTimeout(openSins[msg.messageReference.messageID]);
         delete openSins[msg.messageReference.messageID];
         // HANDLE RESPONSES
@@ -361,5 +363,8 @@ bot.connect(); // Get the bot to connect to Discord
 // };
 
 const sinReminder = async (id: string | undefined) => {
-  bot.createMessage("500281135226552333", `${id ? `<@${id}> - ` : ""}Please fill in your bin!`);
+  bot.createMessage(
+    "500281135226552333",
+    `${id ? `<@${id}> - ` : ""}Please fill in your bin!`
+  );
 };
