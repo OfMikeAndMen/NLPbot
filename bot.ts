@@ -94,8 +94,8 @@ bot.on("messageCreate", async (msg) => {
         if (reg) {
           u = msg.channel.guild.members.find(
             (e) =>
-              e.username === reg[1] ||
-              (e.nick === reg[1] && e.roles.includes("395378176349700097"))
+              (e.username === reg[1] || e.nick === reg[1]) &&
+              e.roles.includes("395378176349700097")
           )?.id;
           bot.createMessage(
             "500281135226552333",
