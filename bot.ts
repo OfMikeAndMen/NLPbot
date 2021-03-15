@@ -97,10 +97,6 @@ bot.on("messageCreate", async (msg) => {
               (e.username === reg[1] || e.nick === reg[1]) &&
               e.roles.includes("395378176349700097")
           )?.id;
-          bot.createMessage(
-            "500281135226552333",
-            `${u ? `<@${u}> - ` : ""}Found`
-          );
         }
         openSins[msg.id] = setTimeout(() => sinReminder(u), 30 * 60 * 1000);
       } else if (
@@ -364,7 +360,7 @@ bot.connect(); // Get the bot to connect to Discord
 
 const sinReminder = async (id: string | undefined) => {
   bot.createMessage(
-    "500281135226552333",
+    SIN_BINNED,
     `${id ? `<@${id}> - ` : ""}Please fill in your bin!`
   );
 };
