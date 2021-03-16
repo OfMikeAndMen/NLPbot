@@ -87,18 +87,17 @@ bot.on("messageCreate", async (msg) => {
     if (channelID === SIN_BINNED) {
       if (msg.webhookID) {
         // HANDLE SIN-BINS
-        let u: string | undefined;
         const reg = msg.content.match(
           /^(?:MAIN|RACING2|TEST): (.*) SIN-BINNED .*$/im
         );
         if (reg) {
-          u = msg.channel.guild.members.find(
+          let u = msg.channel.guild.members.find(
             (e) =>
               (e.username === reg[1] || e.nick === reg[1]) &&
               e.roles.includes("395378176349700097")
           )?.id;
+          openSins[msg.id] = setTimeout(() => sinReminder(u), 30 * 60 * 1000);
         }
-        openSins[msg.id] = setTimeout(() => sinReminder(u), 30 * 60 * 1000);
       } else if (
         msg.messageReference &&
         msg.member &&
