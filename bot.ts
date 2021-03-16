@@ -85,15 +85,10 @@ bot.on("messageCreate", async (msg) => {
     }
   } else if (msg.channel.type === 0) {
     if (channelID === SIN_BINNED) {
-      if (msg.webhookID) {
+      if (msg.webhookID && msg.content.includes("SIN-BINNED")) {
         // HANDLE SIN-BINS
-        const reg = msg.content.match(
-          /^(?:MAIN|RACING2|TEST): (.*) SIN-BINNED .*$/im
-        );
-        if (reg) {
-          let u = msg.mentions[0]?.id;
-          openSins[msg.id] = setTimeout(() => sinReminder(u), 30 * 60 * 1000);
-        }
+        let u = msg.mentions[0]?.id;
+        openSins[msg.id] = setTimeout(() => sinReminder(u), 30 * 60 * 1000);
       } else if (
         msg.messageReference &&
         msg.member &&
