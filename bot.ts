@@ -87,6 +87,7 @@ bot.on("messageCreate", async (msg) => {
     if (channelID === SIN_BINNED) {
       if (msg.webhookID && msg.content.includes("SIN-BINNED")) {
         // HANDLE SIN-BINS
+        bot.createMessage("500281135226552331", msg.mentions.toString());
         let u = msg.mentions[0]?.id;
         openSins[msg.id] = setTimeout(() => sinReminder(u), 30 * 60 * 1000);
       } else if (
