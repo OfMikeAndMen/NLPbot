@@ -351,6 +351,6 @@ bot.connect(); // Get the bot to connect to Discord
 const sinReminder = async (id: string | undefined) => {
   bot.createMessage(
     SIN_BINNED,
-    `${id ? `<@${id}> - ` : ""}Please fill in your bin!`
+    `${id ? `${id} - ` : ""}Please fill in your bin!`
   );
 };
