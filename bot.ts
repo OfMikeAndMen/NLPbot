@@ -88,14 +88,17 @@ bot.on("messageCreate", async (msg) => {
       if (msg.webhookID && msg.content.includes("SIN-BINNED")) {
         // HANDLE SIN-BINS
         let u = msg.embeds[0]?.description;
-        openSins[msg.id] = setTimeout(() => sinReminder(u), 30 * 60 * 1000);
+        openSins[msg.id] = setTimeout(
+          () => sinReminder(u, msg.id),
+          30 * 60 * 1000
+        );
       } else if (
         msg.messageReference &&
         msg.member &&
-        openSins[msg.messageReference.messageID]
+        openSins[msg.messageReference.messageID || ""]
       ) {
-        clearTimeout(openSins[msg.messageReference.messageID]);
-        delete openSins[msg.messageReference.messageID];
+        clearTimeout(openSins[msg.messageReference.messageID || ""]);
+        delete openSins[msg.messageReference.messageID || ""];
         // HANDLE RESPONSES
       }
     }
@@ -348,9 +351,9 @@ bot.connect(); // Get the bot to connect to Discord
 //   return guild.members.get(userID);
 // };
 
-const sinReminder = async (id: string | undefined) => {
-  bot.createMessage(
-    SIN_BINNED,
-    `${id ? `${id} - ` : ""}Please fill in your bin!`
-  );
+const sinReminder = async (id: string | undefined, mid: string) => {
+  bot.createMessage(SIN_BINNED, {
+    content: `${id ? `${id} - ` : ""}Please fill in your bin!`,
+    messageReferenceID: mid,
+  });
 };
