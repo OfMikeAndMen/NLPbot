@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-if (!process.env.d_TOKEN) {
+if (!process.env.d_TEST_TOKEN) {
   throw new Error("no discord token set");
 }
 
@@ -11,12 +11,12 @@ import fs from "fs";
 //   LogisticRegressionClassifier,
 //   BayesClassifier,
 // } from "natural";
-// import { respond } from "./slashCommands/slashCommandHandler";
+import { respond } from "./slashCommands/slashCommandHandler";
 import { storeImageFromFile } from "./utils/utils";
 
 // TYPES
 import { command, location, stickies } from "types/nlp";
-// import { interaction } from "types/slashCommands";
+import { Interaction } from "types/slashCommands";
 
 const PROJECT_HOMECOMING = "388742985619079188";
 
@@ -38,7 +38,7 @@ let stickyMsg: stickies = {};
 
 let openSins: { [key: string]: NodeJS.Timeout } = {};
 
-const bot = new Client(process.env.d_TOKEN, {
+const bot = new Client(process.env.d_TEST_TOKEN, {
   // "allowedMentions": { "everyone": true },
   autoreconnect: true,
 });
@@ -339,7 +339,7 @@ bot.on("guildMemberUpdate", async (g, m, o) => {
 bot.on("rawWS", (e: any) => {
   if (e.t !== "INTERACTION_CREATE") return;
 
-  // respond(e.d as Interaction, bot);
+  respond(e.d as Interaction, bot);
 });
 
 bot.connect(); // Get the bot to connect to Discord

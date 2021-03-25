@@ -26,7 +26,7 @@ export type ApplicationCommandOption = {
   description: string;
   required?: boolean;
   choices?: ApplicationCommandOptionChoice;
-  options?: ApplicationCommandOption;
+  options?: ApplicationCommandOption[];
 };
 
 type ApplicationCommandOptionChoice = {

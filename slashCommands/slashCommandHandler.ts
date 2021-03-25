@@ -14,17 +14,19 @@ const options: AxiosRequestConfig = {
 };
 
 import * as report from "./commands/report";
+import * as handling from "./commands/handling";
 let cmdList: {
   [key: string]: Command;
 } = {
   report: report,
+  handling: handling
 };
 
 const baseAPIURL = `https://discord.com/api/v8`;
 
-const getGuildURL = (gid: string): string => {
-  return `${baseAPIURL}/applications/${appID}/guilds/${gid}/commands`;
-};
+// const getGuildURL = (gid: string): string => {
+//   return `${baseAPIURL}/applications/${appID}/guilds/${gid}/commands`;
+// };
 
 const getGlobalURL = (): string => {
   return `${baseAPIURL}/applications/${appID}/commands`;
@@ -46,19 +48,19 @@ const getGlobalURL = (): string => {
 
       // TO-DO stop re-registering guild commands every time
       if (!(cmd.guild && !registeredGlobalCommandMap.has(k))) {
-        let url: string;
+        // let url: string;
 
         if (cmd.guild) {
-          url = getGuildURL(cmd.guild);
+          // url = getGuildURL(cmd.guild);
           delete cmd.guild;
         } else {
-          url = getGlobalURL();
+          // url = getGlobalURL();
         }
 
         // let newCommand: {
         //   data: ApplicationCommand[];
         // } = await axios.post(url, cmd, options);
-        await axios.post(url, cmd, options);
+        // await axios.post(url, cmd, options);
       }
     }
   } catch (err) {

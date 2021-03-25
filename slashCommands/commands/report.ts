@@ -4,11 +4,11 @@ import { CreateAppCommand, Interaction } from "types/slashCommands";
 
 // TEST
 // const reportParent = "703968707998908448";
-// const GUILD = "500281135226552331";
+const GUILD = "500281135226552331";
 
 // PH
 const reportParent = "388742985619079188";
-const GUILD = "683026643488735272";
+// const GUILD = "683026643488735272";
 
 const register: CreateAppCommand = {
   name: "report",
