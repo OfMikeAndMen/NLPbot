@@ -1,7 +1,7 @@
 import { createWriteStream } from "fs";
 import axios from "axios";
 
-async function storeImageFromFile(path: string, url: string): Promise<void> {
+async function storeImageFromFile(url: string, path: string): Promise<void> {
   const file = await axios.get(url, {
     responseType: "stream",
   });
