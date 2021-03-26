@@ -164,7 +164,7 @@ bot.on("messageCreate", async (msg) => {
 
                     await storeImageFromFile(
                       msg.attachments[0].proxy_url,
-                      `./media/" + ${filename}`
+                      `./media/${filename}`
                     );
 
                     cmds[newCmd].media = filename;
