@@ -3,7 +3,7 @@
     "text": "In order for your lap times to save, you need to be running the game at 60FPS. This is because the GTA engine doesn't handle crazy FPS numbers very well, which can cause differences in vehicle performance.\n\nInstructions on how to limit your FPS can be found at: https://wiki.phomecoming.com/doku.php?id=faq:fpslimt"
   },
   "register": {
-    "text": "For information on how to register, read the #faq."
+    "text": "For information on how to register, <#388989274156040193>"
   },
   "fetching": {
     "text": "If you're unable to open the F7 menu and it says ``Fetching Perms`` at the bottom of the screen, reconnect to the server."
@@ -19,9 +19,6 @@
   },
   "euserver": {
     "text": "There are no plans to set up a server in Europe. We have players from all over the world and the current server location (New York) is the best middle-ground option to enable everyone to play on the same server."
-  },
-  "fivem": {
-    "text": "https://discord.gg/fivem"
   },
   "streamer": {
     "text": "To gain the Streaming role, link your Twitch account to your Discord, enable Streaming Mode, and connect to one of the Homecoming servers while streaming. The role will be applied automatically."
@@ -39,7 +36,7 @@
     "text": "Good places to upload a video clip https://streamable.com/ https://youtube.com/"
   },
   "queue": {
-    "text": "We do not have a queue system, nor are we planning to implement one. There are too many technical and logistical issues to make it a viable option. Check out #faq Q20b for information on how increase your chances of getting on."
+    "text": "We do not have a queue system, nor are we planning to implement one. There are too many technical and logistical issues to make it a viable option. Check out <#388989274156040193> Q20 for information on how to increase your chances of getting on."
   },
   "whitelist": {
     "text": "Special events have a whitelist applied to limit who can join and who can't.\n\nIn addition some streamers occasionally use their whitelists. To gain either the 1322 or EMDT roles for whitelisting purposes, join Broughy's Discord for 1322 and Baron's or Sarah's Discord for EMDT respectively and do ``!roles`` in #charlie to trigger a roles check.\n\nEvent roles are applied automatically when you sign up."
@@ -54,7 +51,7 @@
     "text": "You can find templates and OBJs for most of the vehicles on Homecoming at https://p-h-c.xyz/phobjs"
   },
   "specs": {
-    "text": "1. Download CPU-Z (https://www.cpuid.com/softwares/cpu-z.html)\n2. Open CPU-Z\n3. Click Validate\n4. Click Submit\n5. Post link\n*(Optional)* 6. Go to Documents > Rockstar Games > GTA V and post the Settings.xml file here"
+    "text": "1. Download CPU-Z at <https://www.cpuid.com/softwares/cpu-z.html>\n2. Open CPU-Z\n3. Click \"Validate\"\n4. Click \"Submit\"\n5. Post link here.\n*(Optional) 6. Go to Documents > Rockstar Games > GTA V and post the Settings.xml file here*"
   },
   "shitsfucked": {
     "text": "",
@@ -121,5 +118,33 @@
   },
   "vehicles": {
     "text": "http://stats.phomecoming.com/#/vehicleslist"
+  },
+  "faq": {
+    "text": "Please read the FAQ at <#388989274156040193>. Everything you need to know is explained there.\n\nJust go ahead and read it. It'll make both of our lives easier if you do.\n\nSeriously, read it. Don't skim trough it. **Read it.**"
+  },
+  "s3": {
+    "text": "Server 3 has gone the way of the dodo. It's stone dead. Definitely deceased. It's bleedin' demised. It has passed on. It is no more. It has ceased to be. It's expired and gone to meet its maker. It's a stiff. Bereft of life, it rests in peace. It has kicked the bucket. It's shuffled off this mortal coil, run down the curtain and joined the bleedin' choir invisible."
+  },
+  "donate": {
+    "text": "Sorry, but Project Homecoming does not accept donations. This is a passion project and in our experience money always ruins such things. \n\nIf you want to give to the community, you can gift some Nitro (Post gift links in <#395391595350065153> just in case there are some bots camping general chat for gift links). \n\nOr buy yourself something nice. You deserve it ;)"
+  },
+  "queue2": {
+    "text": "",
+    "media": "unknown.png"
+  },
+  "reply": {
+    "text": "Make sure you disable the reply notification when replying to messages by the management. \nFor many of us, a ping means that something just went kaboom and finding that it was someone going \"omg lol\" to something we said is very infuriating.\n\nSo PLEASE make sure you turn the ping off when replying by clicking this little thing before pressing enter.",
+    "media": "reply_ping_toggle.png"
+  },
+  "fivem": {
+    "text": "To join the FiveM Discord (cfx.re Project Hub), search for `cfx.re` in the \"Explore Public Servers\" section of your Discord client.",
+    "media": "fivem_discord.png"
+  },
+  "blueflags": {
+    "text": "**How to blue flag 101:**",
+    "media": "blue_flags.png"
+  },
+  "logs": {
+    "text": "If you've installed FiveM in the default location, your log files can be found in `%localappdata%\\FiveM\\Fivem.app\\logs`."
   }
 }
