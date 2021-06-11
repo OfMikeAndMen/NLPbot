@@ -70,7 +70,7 @@
     "text": "<:bigbaggiboi1:667833687093673985><:bigbaggiboi2:667833698581872661><:bigbaggiboi3:667833710808268801><:bigbaggiboi4:667833722304725014>"
   },
   "stats": {
-    "text": "http://stats.phomecoming.com/"
+    "text": "Statsite: <http://stats.phomecoming.com/>\n*P.S. Charliebot will ping you if you've been promoted. There's no need to keep checking every day.*"
   },
   "ticket": {
     "text": "The error message along the lines of `No citizenFX ticket was specified. Blahblahblah.` means that the FiveM services are having issues. This isn't something we can affect, so you just have to be patient and try again later. You can also check the support channels on the FiveM Discord. Those usually light up when there's a global FiveM issue."
@@ -100,10 +100,10 @@
     "text": "You can find the addresses for the servers in the <#388989274156040193>. A lot of other useful information there as well, so go read it."
   },
   "spam": {
-    "text": "If you see the message `Spam Timeout` when trying to connect, it means that you have been trying to connect too many times in a short period of time and have been given a 48-hour automated ban. \n**This ban cannot be lifted manually.**\n\nFor information on how to connect in a more measured manner, check out <#388989274156040193> Q20."
+    "text": "If you see the message `Spam Timeout` when trying to connect, it means that you have been connecting too many times in a short period of time and have been given an automated 48-hour ban.\n\nConnection spamming can cause several issues, including server instability, so this is our way of discouraging people from doing it.\n**This ban cannot be lifted manually.**\n\nFor information on how to connect in a more measured manner, check out <#388989274156040193> Q20."
   },
   "cache": {
-    "text": "**To clear the FiveM cache do the following:**\n* Close the FiveM client\n* Delete `%localappdata%\\FiveM\\FiveM Application Data\\caches.xml`\n* Delete `%localappdata%\\FiveM\\FiveM Application Data\\cache\\priv`\n\n**NOTE: Clearing the cache is to be used as the absolute last resort, as it means you'll have to download all the custom assets again. Do this only if** ***__everything__*** **else has failed.**"
+    "text": "**To clear the FiveM cache do the following:**\n* Close the FiveM client\n* Delete `%localappdata%\\FiveM.app\\data\\server-cache-priv`\n* Start FiveM and connect to one of the servers\n\n**NOTE: Clearing the cache is to be used as the absolute last resort, as it means you'll have to download all the custom assets again. Do this only if** ***__everything__*** **else has failed.**"
   },
   "binned": {
     "text": "If you're unclear on why you got binned, either **politely** ask the host after the race or wait for them to fill in the bin report in <#820276170871930900>."
@@ -123,7 +123,7 @@
     "text": "Please read the FAQ at <#388989274156040193>. Everything you need to know is explained there.\n\nJust go ahead and read it. It'll make both of our lives easier if you do.\n\nSeriously, read it. Don't skim trough it. **Read it.**"
   },
   "s3": {
-    "text": "Server 3 has gone the way of the dodo. It's stone dead. Definitely deceased. It's bleedin' demised. It has passed on. It is no more. It has ceased to be. It's expired and gone to meet its maker. It's a stiff. Bereft of life, it rests in peace. It has kicked the bucket. It's shuffled off this mortal coil, run down the curtain and joined the bleedin' choir invisible."
+    "text": "In lieu of some streamers showing up again, we've set up a third server once more. You can connect to it at `race3.phomecoming.com`.\n\n*Note: No results, no status bot, but stats are being tracked, so they'll count towards promotions.*"
   },
   "donate": {
     "text": "Sorry, but Project Homecoming does not accept donations. This is a passion project and in our experience money always ruins such things. \n\nIf you want to give to the community, you can gift some Nitro (Post gift links in <#395391595350065153> just in case there are some bots camping general chat for gift links). \n\nOr buy yourself something nice. You deserve it ;)"
@@ -140,11 +140,16 @@
     "text": "To join the FiveM Discord (cfx.re Project Hub), search for `cfx.re` in the \"Explore Public Servers\" section of your Discord client.",
     "media": "fivem_discord.png"
   },
-  "blueflags": {
-    "text": "**How to blue flag 101:**",
-    "media": "blue_flags.png"
-  },
   "logs": {
     "text": "If you've installed FiveM in the default location, your log files can be found in `%localappdata%\\FiveM\\Fivem.app\\logs`."
+  },
+  "blueflags": {
+    "text": "If you're unclear on how to blue flag effectively, check out this handy instructional video: https://www.youtube.com/watch?v=-O1nKADFSp0"
+  },
+  "otl": {
+    "text": "**OTL stands for \"Off-Road Traction Loss\".** \nThis is a multiplier value in the handling file of each vehicle that reduces the amount of grip on low traction surfaces (dirt, gravel, some stunt props, etc). The higher the value, the worse the vehicle will perform. Default value is 1.0."
+  },
+  "laghit": {
+    "text": "https://youtu.be/DjyA-DPs_Nw"
   }
 }
