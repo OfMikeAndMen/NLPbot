@@ -27,7 +27,7 @@ const MANAGEMENT = "818162426578731069";
 const SIN_BINNED = "820276170871930900";
 const TEST_CHANNEL = "735315394151055491";
 
-let cmds = require("./cmds.json");
+let cmds: { [key: string]: command } = require("./cmds.json");
 
 let recording = false;
 let locs: {
@@ -220,6 +220,21 @@ bot.on("messageCreate", async (msg) => {
             }
             break;
 
+          case "adminonly":
+            if (channelID === TEST_CHANNEL || args[0]) {
+              const c = args.shift();
+              if (c && cmds[c] !== undefined) {
+                cmds[c].adminonly = true;
+                msg.addReaction("✔️");
+                fs.writeFile(
+                  "./cmds.json",
+                  JSON.stringify(cmds, null, 2),
+                  () => {}
+                );
+              }
+            }
+            break;
+
           case "start":
             if (channelID === "761844501069037578") {
               if (!recording) {
@@ -264,8 +279,10 @@ bot.on("messageCreate", async (msg) => {
           default:
             if (cmd && cmds[cmd]) {
               const command: command = cmds[cmd];
+              if (command.adminonly && !msg.member.roles.includes(MANAGEMENT))
+                break;
               let file: MessageFile | undefined;
-              if (cmds[cmd].media) {
+              if (command.media) {
                 bot.sendChannelTyping(channelID);
                 file = {
                   file: fs.readFileSync("./media/" + command.media),

@@ -1,6 +1,7 @@
 export type command = {
   text: string;
-  media: string;
+  media?: string;
+  adminonly?: boolean
 };
 
 export type location = {
