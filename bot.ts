@@ -43,6 +43,8 @@ const bot = new Client(process.env.d_TOKEN, {
   autoreconnect: true,
 });
 
+let parkerCD = 0;
+
 // let classifier: LogisticRegressionClassifier;
 // LogisticRegressionClassifier.load(
 //   "classifier/classifications.json",
@@ -129,14 +131,18 @@ bot.on("messageCreate", async (msg) => {
             break;
 
           case "parker":
-            try {
-              msg.channel.sendTyping();
-              let files = fs.readdirSync("./parker");
-              let file = files[Math.floor(Math.random() * files.length)];
-              let body = fs.readFileSync("./parker/" + file);
-              bot.createMessage(channelID, "", { file: body, name: file });
-            } catch (err) {
-              console.log(err);
+            let d = new Date().getTime();
+            if (parkerCD + 60000 < d) {
+              try {
+                msg.channel.sendTyping();
+                let files = fs.readdirSync("./parker");
+                let file = files[Math.floor(Math.random() * files.length)];
+                let body = fs.readFileSync("./parker/" + file);
+                bot.createMessage(channelID, "", { file: body, name: file });
+                parkerCD = d;
+              } catch (err) {
+                console.log(err);
+              }
             }
             break;
           case "cmds": //lists all commands in cmds.json
