@@ -326,7 +326,10 @@ bot.on("messageCreate", async (msg) => {
 
         bot.createMessage(
           TEST_CHANNEL,
-          `<@${msg.author.id}> - Message deleted, potential scam`
+          `<@${msg.author.id}> - Message in <#${channelID}> deleted, potential scam
+          \`\`\`
+          ${msg.content}
+          \`\`\``
         );
       }
       //   const classifications = classifier.getClassifications(message);
