@@ -134,7 +134,8 @@
   },
   "reply": {
     "text": "Make sure you disable the reply notification when replying to messages by the management. \nFor many of us, a ping means that something just went kaboom and finding that it was someone going \"omg lol\" to something we said is very infuriating.\n\nSo PLEASE make sure you turn the ping off when replying by clicking this little thing before pressing enter.",
-    "media": "reply_ping_toggle.png"
+    "media": "reply_ping_toggle.png",
+    "adminonly": true
   },
   "fivem": {
     "text": "To join the FiveM Discord (cfx.re Project Hub), search for `cfx.re` in the \"Explore Public Servers\" section of your Discord client.",
