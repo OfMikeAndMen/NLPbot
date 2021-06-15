@@ -321,7 +321,7 @@ bot.on("messageCreate", async (msg) => {
         stick.msgid = mess.id;
       }
 
-      if (msg.content.startsWith("@everyone Hello I am leaving CS:GO")) {
+      if (msg.content.includes("streancommunuty")) {
         msg.delete("potential scam");
 
         bot.createMessage(
