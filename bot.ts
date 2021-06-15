@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-if (!process.env.d_TOKEN) {
+if (!process.env.d_TEST_TOKEN) {
   throw new Error("no discord token set");
 }
 
@@ -38,7 +38,7 @@ let stickyMsg: stickies = {};
 
 let openSins: { [key: string]: NodeJS.Timeout } = {};
 
-const bot = new Client(process.env.d_TOKEN, {
+const bot = new Client(process.env.d_TEST_TOKEN, {
   // "allowedMentions": { "everyone": true },
   autoreconnect: true,
 });
@@ -319,6 +319,15 @@ bot.on("messageCreate", async (msg) => {
           allowedMentions: { users: true },
         });
         stick.msgid = mess.id;
+      }
+
+      if (msg.content.startsWith("@everyone Hello I am leaving CS:GO")) {
+        msg.delete("potential scam");
+
+        bot.createMessage(
+          TEST_CHANNEL,
+          `<@${msg.author.id}> - Message deleted, potential scam`
+        );
       }
       //   const classifications = classifier.getClassifications(message);
 
