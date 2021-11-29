@@ -323,7 +323,7 @@ bot.on("messageCreate", async (msg) => {
 
       // if (msg.content.includes("@everyone") || msg.content.includes(".ru/") || msg.content) {
       if (
-        /^(@everyone|\.ru\/|bit\.ly)$/.test(msg.content)
+        /^(@everyone|\.ru\/|bit\.ly)$/m.test(msg.content)
       ) {
         msg.delete("potential scam");
 
