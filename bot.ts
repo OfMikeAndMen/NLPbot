@@ -321,7 +321,10 @@ bot.on("messageCreate", async (msg) => {
         stick.msgid = mess.id;
       }
 
-      if (msg.content.includes("@everyone") || msg.content.includes(".ru/")) {
+      // if (msg.content.includes("@everyone") || msg.content.includes(".ru/") || msg.content) {
+      if (
+        /^(@everyone|\.ru\/|bit\.ly)$/.test(msg.content)
+      ) {
         msg.delete("potential scam");
 
         bot.createMessage(
