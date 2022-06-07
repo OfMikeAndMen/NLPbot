@@ -4,7 +4,7 @@ if (!process.env.d_TOKEN) {
   throw new Error("no discord token set");
 }
 
-import { Client, FileContent } from "eris";
+import { Client, MessageFile } from "eris";
 import fs from "fs";
 // import {
 //   PorterStemmer,
@@ -41,7 +41,6 @@ let openSins: { [key: string]: NodeJS.Timeout } = {};
 const bot = new Client(process.env.d_TOKEN, {
   // "allowedMentions": { "everyone": true },
   autoreconnect: true,
-  intents: 1539,
 });
 
 let parkerCD = 0;
@@ -86,7 +85,6 @@ bot.on("messageCreate", async (msg) => {
     } catch (err) {
       bot.createMessage(channelID, "Invalid format");
     }
-    // @ts-ignore
   } else if (msg.channel.type === 0) {
     if (channelID === SIN_BINNED) {
       if (msg.webhookID && msg.content.includes("SIN-BINNED")) {
@@ -136,7 +134,6 @@ bot.on("messageCreate", async (msg) => {
             let d = new Date().getTime();
             if (parkerCD + 60000 < d) {
               try {
-                // @ts-ignore
                 msg.channel.sendTyping();
                 let files = fs.readdirSync("./parker");
                 let file = files[Math.floor(Math.random() * files.length)];
@@ -290,7 +287,7 @@ bot.on("messageCreate", async (msg) => {
               const command: command = cmds[cmd];
               if (command.adminonly && !msg.member.roles.includes(MANAGEMENT))
                 break;
-              let file: FileContent | undefined;
+              let file: MessageFile | undefined;
               if (command.media) {
                 bot.sendChannelTyping(channelID);
                 file = {
@@ -325,7 +322,9 @@ bot.on("messageCreate", async (msg) => {
       }
 
       // if (msg.content.includes("@everyone") || msg.content.includes(".ru/") || msg.content) {
-      if (/(@everyone|\.ru\/|bit\.ly(?!\/tony_ph_combos))/.test(msg.content)) {
+      if (
+        /(@everyone|\.ru\/|bit\.ly(?!\/tony_ph_combos))/.test(msg.content)
+      ) {
         msg.delete("potential scam");
 
         bot.createMessage(
