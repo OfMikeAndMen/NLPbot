@@ -28,18 +28,19 @@ const respond = async (data: Interaction, bot: Client) => {
       GUILD,
       `report-${data.member?.user.username || data.user?.username}`,
       0,
+      "",
       {
         parentID: reportParent,
         permissionOverwrites: [
           {
             id: "99164237187788800",
-            type: "member",
+            type: 1,
             allow: 0x400,
             deny: 0,
           },
           {
             id: GUILD,
-            type: "role",
+            type: 0,
             allow: 0,
             deny: 0x400,
           },
