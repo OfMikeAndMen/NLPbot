@@ -1,4 +1,7 @@
 {
+  "1322": {
+    "text": "In order to gain the 1322 or 1322+ role for Broughy's streams, you need to be in his Discord and have any applicable YouTube or Twitch accounts linked to your Discord account. Then do `!roles` in <#395879804236464128> to trigger a role check.\n\n1322: YT members, Twitch subscribers, Broughy's regulars\n1322+: Anyone on Broughy's Discord"
+  },
   "fps": {
     "text": "In order for your lap times to save, you need to be running the game at 60FPS. This is because the GTA engine doesn't handle crazy FPS numbers very well, which can cause differences in vehicle performance.\n\nInstructions on how to limit your FPS can be found at: https://wiki.phomecoming.com/doku.php?id=faq:fpslimt"
   },
@@ -85,7 +88,7 @@
     "text": "https://www.youtube.com/watch?v=cPJm1W5oZSU"
   },
   "blackscreen": {
-    "text": "If you get stuck in a black screen when trying to join a race, hit F8 and type a message in the console letting the host know you've blackscreened. They will then proceed to close the race to clear your blackscreen and re-host it.\n\nIf it happens during a race (usually happens when respawning), reconnect to the server and choose the \"Rejoin\" option in the F7 menu.\n\nIf you blackscreen when a race is closed (aka. you've been waiting in the arena and are about to be teleported to freeroam), reconnect."
+    "text": "If you join a race and get stuck on a  black screen, press `F8` and enter the command `blackscreen` in the console. This will reset you and enable you to try joining the race again. \n\nNote that you might just blackscreen again on the next attempt, but you should at least be able to join the next race without having to reconnect to the server."
   },
   "join": {
     "text": "In order to join a race all you need to do is join a racing server, wait for a race to be hosted and follow the instructions that show up at the bottom of the screen."
@@ -94,7 +97,7 @@
     "text": "**Try the snazzy Homecoming Launcher today!**\nIt comes with such amazing features as:\n* Convenient one-click connecting!\n* Player lists so you can see if your nemesis is on the server or not!\n* Track lists! Don't know where to find that sick track people are talking about? Worry no more!\n* Out of ideas? Use the randomiser and let it decide for you!\n* Want to make the launcher look like absolute ass? Now you can with customisable colours!\n* More features coming as Applez gets everything sorted!\n\n**Get yours by grabbing the installer from the pinned messages in <#756793848985944094>!**"
   },
   "disconnect": {
-    "text": "**__If you've lost access to your account, do the following:__**\n\n**Steam:** If you're unable to log in to your __Steam__ account and need to register with a new account, enter the command `!unregister` into <#395879804236464128> to disconnect the current account and get a new code from the Testing server. \n**This is only if you've lost your Steam account.**\n\n**Discord:** If you've lost access to your __Discord__ account, log on to the Testing server and enter the command `/unregister` into chat. After that's done, reconnect to the server and you should be able to get a new code to register with the new account. \n**Do this only if you've lost access to your old Discord account.**"
+    "text": "**__If you've lost access to your account, do the following:__**\n\n**Discord:** \n1) Connect to the Testing server by pressing `F8` in the FiveM client and typing `connect testing.phomecoming.com`\n2) Enter the command `/unregister` in chat\n3) Reconnect to the server\n4) Get your new code from the `Discord` menu that should be available to you under `F7`\n5) Enter new code in <#395879804236464128> with the command `!discord <your_code_here>`\n**__Do this only if you've lost access to your old Discord account.__**\n\n**Steam:**\n1) Enter the command `!unregister` in <#395879804236464128> to disconnect your current account\n2) Connect to the Testing server by pressing `F8` in the FiveM client and typing `connect testing.phomecoming.com`\n3) Get your new code from the `Discord` menu that should be available to you under `F7`\n4) Enter new code in <#395879804236464128> with the command `!discord <your_code_here>`\n**__This is only if you've lost your Steam account.__**\n*NOTE: Changing your linked Steam account will reset your rank progress, race data, and saved vehicles.*"
   },
   "ip": {
     "text": "You can find the addresses for the servers in the <#388989274156040193>. A lot of other useful information there as well, so go read it."
@@ -158,5 +161,22 @@
   },
   "boosting": {
     "text": "Here's Sarah's comprehensive write-up on all the different kinds of boosts and other little tricks and tips on how to get that extra little bit out of your lap times.\n<https://docs.google.com/document/d/153xjPEI_EJf3rvY-WrgHRByx34SsMKILKEDA7AEaQdQ>"
+  },
+  "build": {
+    "text": "If FiveM is giving you a \"Changing game build failed: An unknown error occurred\", make sure your GTA5 installation is up to date."
+  },
+  "files": {
+    "text": "**HOW TO VERIFY YOUR GTA FILES:**\n\n**__Epic Game Store__** \n1) Make sure you've set EGS to auto-update the game (click on the ... menu in your games library and toggle on Auto Update)\n2) Verify your files (... menu -> Verify)\n3) Log on to GTA Online and see if that'll force an update\n\n**__Steam__**\n1) Make sure automatic updates are on (Right-click the game in your Library and choose Properties -> Updates -> \"Always keep this game updated\")\n2) Verify your files (Right-click, Properties -> Local Files -> Verify integrity of game files...)\n3) Log on to GTA Online and see if that'll force an update\n\n**__Rockstar Launcher__**\n1) Click the Settings in the top right -> Select GTA V from the list on the left -> Click \"Verify Integrity\""
+  },
+  "phone": {
+    "text": "",
+    "media": "unknown.png"
+  },
+  "status": {
+    "text": "https://status.cfx.re/"
+  },
+  "audiocrash": {
+    "text": "**If you're getting a gta-core-five.dll error when connecting to any of the Homecoming servers, try the following:**\n1) Set your `FiveM.exe` to run in Vista SP1 compatibility mode (You might need to apply the mode for all users to ensure it's always running in that mode.)\n\n2) Unplug any and all USB devices that have audio inputs/outputs (like a headset or webcam with a microphone, etc.) You can reconnect the device(s) once you've connected to the server.\n\n\n**The full error is as follows:**\n```gta-core-five.dll!Microsoft::WRL::ComPtr<IDirectSoundCaptureBuffer>::InternalRelease (0x11)```\n__\n__",
+    "media": "compat_mode.png"
   }
 }
