@@ -21,7 +21,7 @@ import { command, location, stickies } from "types/nlp";
 const PROJECT_HOMECOMING = "388742985619079188";
 
 // ROLES
-const MANAGEMENT = "818162426578731069";
+const MANAGEMENT = "388785025686175744";
 
 // CHANNELS
 const SIN_BINNED = "820276170871930900";
