@@ -26,7 +26,7 @@ import { storeImageFromFile } from "./utils/utils";
 import { command, location, stickies } from "types/nlp";
 // import { Interaction } from "types/slashCommands";
 
-import getPool from "utils/db";
+import getPool from "./utils/db";
 import { PoolConnection } from "mariadb";
 import { DBUpdate, perm } from "types/database";
 
@@ -307,7 +307,10 @@ bot.on("messageCreate", async (msg) => {
                   readFileSync("./demoteTimeouts.json").toString()
                 );
                 file[steamid] = d.getTime();
-                writeFileSync("./demoteTimeouts.json", file);
+                writeFileSync(
+                  "./demoteTimeouts.json",
+                  JSON.stringify(file, null, 2)
+                );
 
                 //Update DB
                 let affR: DBUpdate = await conn.query(
@@ -327,12 +330,13 @@ bot.on("messageCreate", async (msg) => {
                   "Success! " +
                     steamid +
                     " will be host until <t:" +
-                    d.getTime() +
+                    Math.floor(d.getTime() / 1000) +
                     ":f>"
                 );
 
                 await conn.commit();
               } catch (err) {
+                console.log(err);
               } finally {
                 conn?.release();
               }
@@ -523,7 +527,7 @@ const demoteHost = async (steamid: string) => {
 
     delete file[steamid];
 
-    writeFileSync("./demoteTimeouts.json", file);
+    writeFileSync("./demoteTimeouts.json", JSON.stringify(file, null, 2));
   } catch (err) {
   } finally {
     conn?.release();
@@ -559,8 +563,9 @@ setInterval(async () => {
       }
     }
 
-    writeFileSync("./demoteTimeouts.json", file);
+    writeFileSync("./demoteTimeouts.json", JSON.stringify(file, null, 2));
   } catch (err) {
+    console.log(err);
   } finally {
     conn?.release();
   }
