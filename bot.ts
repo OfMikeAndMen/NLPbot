@@ -13,7 +13,7 @@ if (
 }
 
 import { Client, FileContent } from "eris";
-import fs from "fs";
+import fs, { readFileSync, writeFileSync } from "fs";
 // import {
 //   PorterStemmer,
 //   LogisticRegressionClassifier,
@@ -28,6 +28,7 @@ import { command, location, stickies } from "types/nlp";
 
 import getPool from "utils/db";
 import { PoolConnection } from "mariadb";
+import { DBUpdate, perm } from "types/database";
 
 const PROJECT_HOMECOMING = "388742985619079188";
 
@@ -258,14 +259,77 @@ bot.on("messageCreate", async (msg) => {
           case "temphost":
             if (
               channelID === TEST_CHANNEL &&
-              msg.member.roles.includes(MANAGEMENT)
+              msg.member.roles.includes(MANAGEMENT) &&
+              args[0]
             ) {
+              const steamid = "steam:" + args.shift();
+
+              //Error if date is more than 48hrs in the future or invalid date is provided
+              let d: Date | null = new Date(args.join(" "));
+              if (isNaN(d.getTime())) {
+                bot.createMessage(channelID, "Error: Invalid time format!");
+                break;
+              }
+
+              let timeFrame = d.getTime() - new Date().getTime();
+              if (timeFrame > 172800000 || timeFrame < 0) {
+                bot.createMessage(
+                  channelID,
+                  "Error: Time is too far in the future!" //Or in the past, but management doesn't do stupid I'm sure!
+                );
+                break;
+              }
+
               let conn: PoolConnection | undefined;
               try {
                 conn = await getPool().getConnection();
                 await conn.beginTransaction();
 
-                await conn.query("");
+                let result: perm[] = await conn.query(
+                  "SELECT * FROM perm WHERE steam_id = ?",
+                  [steamid]
+                );
+
+                //Somethings gone seriously wrong
+                if (result.length !== 1) {
+                  bot.createMessage(
+                    channelID,
+                    "Error: Invalid steam ID or no matching user found!"
+                  );
+                  throw Error;
+                }
+
+                //Schedule User demotion
+                setTimeout(() => demoteHost(steamid), timeFrame);
+
+                //Write timestamp to a file just to be sure!
+                let file = JSON.parse(
+                  readFileSync("./demoteTimeouts.json").toString()
+                );
+                file[steamid] = d.getTime();
+                writeFileSync("./demoteTimeouts.json", file);
+
+                //Update DB
+                let affR: DBUpdate = await conn.query(
+                  "UPDATE perm SET host = 1 WHERE steam_id = ?",
+                  [steamid]
+                );
+                if (affR.affectedRows !== 1) {
+                  bot.createMessage(
+                    channelID,
+                    "Error: Something went wrong when updating the DB"
+                  );
+                  throw Error;
+                }
+
+                bot.createMessage(
+                  channelID,
+                  "Success! " +
+                    steamid +
+                    " will be host until <t:" +
+                    d.getTime() +
+                    ":f>"
+                );
 
                 await conn.commit();
               } catch (err) {
@@ -433,3 +497,71 @@ const sinReminder = async (id: string | undefined, mid: string) => {
     messageReferenceID: mid,
   });
 };
+
+const demoteHost = async (steamid: string) => {
+  let file = JSON.parse(readFileSync("./demoteTimeouts.json").toString());
+
+  let conn: PoolConnection | undefined;
+  try {
+    conn = await getPool().getConnection();
+    await conn.beginTransaction();
+
+    let affR: DBUpdate = await conn.query(
+      "UPDATE perm SET host = 0 WHERE steam_id = ?",
+      [steamid]
+    );
+    if (affR.affectedRows !== 1) {
+      bot.createMessage(
+        TEST_CHANNEL,
+        "Error: Something went wrong when updating the DB for " + steamid
+      );
+      throw Error;
+    }
+
+    bot.createMessage(TEST_CHANNEL, steamid + " demoted!");
+    await conn.commit();
+
+    delete file[steamid];
+
+    writeFileSync("./demoteTimeouts.json", file);
+  } catch (err) {
+  } finally {
+    conn?.release();
+  }
+};
+
+setInterval(async () => {
+  let file = JSON.parse(readFileSync("./demoteTimeouts.json").toString());
+
+  let conn: PoolConnection | undefined;
+  try {
+    conn = await getPool().getConnection();
+    await conn.beginTransaction();
+
+    for (const steamid of Object.keys(file)) {
+      if (file[steamid] < new Date().getTime()) {
+        let affR: DBUpdate = await conn.query(
+          "UPDATE perm SET host = 0 WHERE steam_id = ?",
+          [steamid]
+        );
+        if (affR.affectedRows !== 1) {
+          bot.createMessage(
+            TEST_CHANNEL,
+            "Error: Something went wrong when updating the DB for " + steamid
+          );
+          throw Error;
+        }
+
+        bot.createMessage(TEST_CHANNEL, steamid + " demoted!");
+        await conn.commit();
+
+        delete file[steamid];
+      }
+    }
+
+    writeFileSync("./demoteTimeouts.json", file);
+  } catch (err) {
+  } finally {
+    conn?.release();
+  }
+}, 600000);
