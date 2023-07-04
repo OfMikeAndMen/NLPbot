@@ -1,6 +1,14 @@
 require("dotenv").config();
 
-if (!process.env.d_TOKEN) {
+if (
+  !(
+    process.env.d_TOKEN &&
+    process.env.DB_HOST &&
+    process.env.DB_PORT &&
+    process.env.DB_PW &&
+    process.env.DB_DB
+  )
+) {
   throw new Error("no discord token set");
 }
 
@@ -17,6 +25,9 @@ import { storeImageFromFile } from "./utils/utils";
 // TYPES
 import { command, location, stickies } from "types/nlp";
 // import { Interaction } from "types/slashCommands";
+
+import getPool from "utils/db";
+import { PoolConnection } from "mariadb";
 
 const PROJECT_HOMECOMING = "388742985619079188";
 
@@ -41,7 +52,7 @@ let openSins: { [key: string]: NodeJS.Timeout } = {};
 const bot = new Client(process.env.d_TOKEN, {
   // "allowedMentions": { "everyone": true },
   autoreconnect: true,
-  intents: 1539
+  intents: 1539,
 });
 
 let parkerCD = 0;
@@ -244,6 +255,26 @@ bot.on("messageCreate", async (msg) => {
             }
             break;
 
+          case "temphost":
+            if (
+              channelID === TEST_CHANNEL &&
+              msg.member.roles.includes(MANAGEMENT)
+            ) {
+              let conn: PoolConnection | undefined;
+              try {
+                conn = await getPool().getConnection();
+                await conn.beginTransaction();
+
+                await conn.query("");
+
+                await conn.commit();
+              } catch (err) {
+              } finally {
+                conn?.release();
+              }
+            }
+            break;
+
           case "start":
             if (channelID === "761844501069037578") {
               if (!recording) {
@@ -325,9 +356,7 @@ bot.on("messageCreate", async (msg) => {
       }
 
       // if (msg.content.includes("@everyone") || msg.content.includes(".ru/") || msg.content) {
-      if (
-        /(@everyone|\.ru\/|bit\.ly(?!\/tony_ph_combos))/.test(msg.content)
-      ) {
+      if (/(@everyone|\.ru\/|bit\.ly(?!\/tony_ph_combos))/.test(msg.content)) {
         msg.delete("potential scam");
 
         bot.createMessage(
