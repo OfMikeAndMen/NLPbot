@@ -299,6 +299,14 @@ bot.on("messageCreate", async (msg) => {
                   throw Error;
                 }
 
+                if (result[0].host === true) {
+                  bot.createMessage(
+                    channelID,
+                    "Error: Target is already host!"
+                  );
+                  throw Error;
+                }
+
                 //Schedule User demotion
                 setTimeout(() => demoteHost(steamid), timeFrame);
 
