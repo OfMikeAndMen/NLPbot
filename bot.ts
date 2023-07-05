@@ -299,8 +299,8 @@ bot.on("messageCreate", async (msg) => {
                   throw Error;
                 }
 
-                console.log(result[0]);
-                if (result[0].host == true) {
+                console.log(result[0].host);
+                if (result[0].host === true) {
                   bot.createMessage(
                     channelID,
                     "Error: Target is already host!"
