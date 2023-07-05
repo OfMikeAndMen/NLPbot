@@ -299,7 +299,6 @@ bot.on("messageCreate", async (msg) => {
                   throw Error;
                 }
 
-                console.log(result[0].host);
                 if (result[0].host === true) {
                   bot.createMessage(
                     channelID,
